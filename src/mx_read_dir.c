@@ -1,18 +1,21 @@
 #include "uls.h"
 
-static void get_strstr(t_file *name, t_data *data, char ***result);
+static char **get_strstr(t_file *name, t_data *data);
 static t_file *get_name(t_file *name, struct dirent *entry);
 static void flag_a_A_free(t_file *name, DIR *dir, int *flags);
 
-char **mx_read_dir(char *dirname, int *flags, t_data *data) {
+char **mx_read_dir(char *dirname, t_data *data) {
     DIR *dir = opendir(dirname);
+    if (!dir)
+        return NULL;
     t_file *name = malloc(sizeof(t_file));
     t_file *savename = name;
     char **result = NULL;
 
     name->next = NULL;
-    flag_a_A_free(name, dir, flags);
-    while (savename->next->next != NULL)
+    name->d_name = NULL;
+    flag_a_A_free(name, dir, data->flags);
+    while (savename->next != NULL && savename->next->next != NULL)
         savename = savename->next;
     free(savename->next);
     savename->next = NULL;
@@ -20,7 +23,7 @@ char **mx_read_dir(char *dirname, int *flags, t_data *data) {
     data->num = mx_num_file(name);
     data->size = mx_head_size(name);
     data->width = data->colums / data->num;
-    get_strstr(name, data, &result);
+    result = get_strstr(name, data);
     return result;
 }
 
@@ -43,25 +46,25 @@ static void flag_a_A_free(t_file *name, DIR *dir, int *flags) {
                 name = get_name(name, entry);
 }
 
-static void get_strstr(t_file *name, t_data *data, char ***result) {
-    data->size_all = mx_size_a(data);
-    char **file = malloc(sizeof(char *) * data->size_all);
+static char **get_strstr(t_file *name, t_data *data) {
+    char **file = NULL;
+    char **result = NULL;
     t_file *tmp = name;
 
-    *result = malloc(sizeof(char *) * data->size_all);
-    for (int i = 0; i < data->size_all; i++) {
+    data->size_all = mx_size_a(data);
+    file = malloc(sizeof(char *) * data->size_all);
+    for (int i = 0; i < data->size_all; i++)
         file[i] = NULL;
-        (*result)[i] = NULL;
-    }
     for (int i = 0; name != NULL; i++) { 
         tmp = name;
         file[i] = name->d_name;
         name = name->next;
         free(tmp);
     }
-    mx_sort_file(&file, data->size);
-    (*result) = mx_get_result(file, (*result), data);
+    mx_sort_file(file, data->size);
+    result = mx_get_result(file, data);
     free(file);
+    return result;
 }
 
 static t_file *get_name(t_file *name, struct dirent *entry) {

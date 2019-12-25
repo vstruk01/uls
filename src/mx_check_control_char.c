@@ -1,17 +1,17 @@
 #include "uls.h"
 
-void mx_check_control_char(t_data *data) {
-    for (int i = 0; (data->d_name)[i] != NULL; i++)
-        for (int j = 0; (data->d_name)[i][j] != '\0'; j++)
-            if ((data->d_name)[i][j] == '\t' 
-                || (data->d_name)[i][j] == '\n'
-                || (data->d_name)[i][j] == '\r' 
-                || (data->d_name)[i][j] == '\f'
-                || (data->d_name)[i][j] == '\a'
-                || (data->d_name)[i][j] == '\b'
-                || (data->d_name)[i][j] == '\v'
-                || (data->d_name)[i][j] == '\033')
+void mx_check_control_char(char ***str) {
+    for (int i = 0; *str != NULL && (*str)[i] != NULL; i++)
+        for (int j = 0; (*str)[i][j] != '\0'; j++)
+            if ((*str)[i][j] == '\t' 
+                || (*str)[i][j] == '\n'
+                || (*str)[i][j] == '\r' 
+                || (*str)[i][j] == '\f'
+                || (*str)[i][j] == '\a'
+                || (*str)[i][j] == '\b'
+                || (*str)[i][j] == '\v'
+                || (*str)[i][j] == '\033')
             {
-                (data->d_name)[i][j] = '?';
+                (*str)[i][j] = '?';
             } 
 }

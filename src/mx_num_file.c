@@ -4,7 +4,7 @@ int mx_num_file(t_file *head) {
     int num = 0;
 
     while (head != NULL) {
-        if (num < mx_strlen(head->d_name))
+        if (head->d_name != NULL && num < mx_strlen(head->d_name))
             num = mx_strlen(head->d_name);
         head = head->next;
     }
