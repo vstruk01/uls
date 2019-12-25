@@ -34,30 +34,33 @@ int main(int argc, char **argv) {
     mx_sort_file(argv, argc - 1);
     if (argc == 1) {
         data->file = mx_read_dir(".", data);
-        // printf("%s\n", data->file[0]);m
         mx_print_file(data->file, data);
         return errno;
     }
     mx_print_file_return_dir(data);
+    //if (data->flag == 1)
+      //  printf("\n");
     for (int i = 0; i < argc; i++) {
         free(data->file);
         data->file = NULL;
         data->file = mx_read_dir(argv[i], data);
-        if (i != 1 || argc > 2 )
-            printf("%s:\n", argv[i]);
-        if (errno == 13)
+        if ((i != 1 || argc > 2) && data->file != NULL)
+            printf("\n%s:\n", argv[i]);
+        if (errno == 13) {
+            printf("\n%s:\n", argv[i]);
             printf("uls: %s: %s\n", argv[i], (strerror(errno)));
-        else 
+        }
+        else if (data->file != NULL)
             mx_print_file(data->file, data);
-        if (i < argc)
-            printf("\n");
+        //if (i < argc && data->file != NULL)
+        //   printf("\n");
         for (int i = 0; i < data->size_all && data->file != NULL; i++)
             if ((data->file)[i] != NULL)    
                 free((data->file)[i]);
         free(data->file);
         data->file = NULL;
     }
-    system("leaks -q uls");
+    // printf("\n");
 }
 
 // static char *resolution(struct stat st) {

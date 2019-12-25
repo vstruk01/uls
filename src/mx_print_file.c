@@ -6,7 +6,6 @@ void mx_print_file(char **file, t_data *data) {
     for (int i = 0; i < data->size_all && file != NULL; i++) {
         if (i % data->width == 0 && i != 0)
             printf("\n");
-        printf("%d\n", i);
         if (file[i] != NULL) {
             printf("%s", file[i]);
             if ((i + 1) % data->width != 0 && file[i + 1] != NULL)    

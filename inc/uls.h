@@ -34,6 +34,7 @@ typedef struct s_big_data {
     int size_all;
     int width;
     int argc;
+    int flag;
     char **argv;
 } t_data;
 

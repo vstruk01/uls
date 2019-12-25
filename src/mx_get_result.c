@@ -11,13 +11,11 @@ char **mx_get_result(char **file, t_data *data) {
         result[i] = NULL;
     for (i = 0; i < data->width; i++) {
         number = i;
-        printf("%s\n", file[2]);
         for (int j = 0; j < line; j++) {
-            // result[number] = file[counter];
+            result[number] = file[counter];
             number += data->width;
             counter++;
         }
     }
-    exit(0);
     return result;
 }
