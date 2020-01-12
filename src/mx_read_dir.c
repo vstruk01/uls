@@ -6,12 +6,12 @@ static void flag_a_A_free(t_file *name, DIR *dir, int *flags);
 
 char **mx_read_dir(char *dirname, t_data *data) {
     DIR *dir = opendir(dirname);
-    if (!dir)
-        return NULL;
     t_file *name = malloc(sizeof(t_file));
     t_file *savename = name;
     char **result = NULL;
 
+    if (!dir)
+        return NULL;
     name->next = NULL;
     name->d_name = NULL;
     flag_a_A_free(name, dir, data->flags);
@@ -31,8 +31,9 @@ static void flag_a_A_free(t_file *name, DIR *dir, int *flags) {
     struct dirent *entry = NULL;
 
     if (flags[0] == 1)
-        while ((entry = readdir(dir)) != NULL)
+        while ((entry = readdir(dir)) != NULL) {
             name = get_name(name, entry);
+        }
     else if (flags[1] == 1) {
         while ((entry = readdir(dir)) != NULL)
             if (strcmp(entry->d_name, ".") != 0 
@@ -62,6 +63,8 @@ static char **get_strstr(t_file *name, t_data *data) {
         free(tmp);
     }
     mx_sort_file(file, data->size);
+    if (isatty(1) == 0)
+        return file;
     result = mx_get_result(file, data);
     free(file);
     return result;

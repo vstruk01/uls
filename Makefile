@@ -3,11 +3,16 @@ num_file \
 check_control_char \
 columns \
 print_file \
+print_to_file \
 head_size \
 print_file_return_dir \
 get_result \
 size_all \
+read_link \
 sort_file \
+get_time \
+get_ino \
+get_size_bytes \
 
 
 INC = uls.h

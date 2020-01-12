@@ -26,6 +26,7 @@ void mx_print_file_return_dir(t_data *data) {
             data->flag = 1;
     }
     if (size > 0) {
+        data->flag_n = 1;
         data->argv_file = malloc(sizeof(char *) * size + 1);
         get_file(size, data);
         print(data, size);
