@@ -12,6 +12,12 @@ read_link \
 sort_file \
 get_time \
 get_ino \
+get_link \
+get_uid \
+get_gid \
+get_blocks \
+get_law \
+get_flag_l \
 get_size_bytes \
 
 

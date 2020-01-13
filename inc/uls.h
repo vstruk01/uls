@@ -1,6 +1,7 @@
 #ifndef ULS_H
 #define ULS_H
 
+#include <time.h>
 #include "libmx.h"
 #include <sys/types.h>
 #include <dirent.h>
@@ -17,32 +18,27 @@
 #include <pwd.h>
 #include <sys/errno.h>
 
+#define HALF_YEAR 15768000
+
 typedef struct s_file {
     char *d_name;
     struct s_file *next;
 } t_file;
 
 typedef struct s_data_const {
-    // time = st.st_mtime;
-    // int ino = st.st_ino;
-    // int size = st.st_size;
-    // int link =  st.st_nlink;
-    // int rdev = st.st_rdev;
-    // int gid = st.st_gid;
-    // int uid = st.st_uid;
-    // int bloks = st.st_blocks;
     time_t time;
+    char *dirname;
     char *strrwx;
     char *strtime;
+    char *strlink;
+    char *strgid;
+    char *struid;
     int ino;
     int size_bytes;
     int link;
-    int rdev;
-    int gid;
-    int uid;
-    int bloks;
+    int blocks;
     struct s_data_const *next;
-} t_const
+} t_const;
 
 typedef struct s_big_data {
     char **file;
@@ -61,11 +57,18 @@ typedef struct s_big_data {
     char **argv;
 } t_data;
 
-void mx_get_size_bytes(struct stat st, t_data *data);
-void mx_get_ino(struct stat st, t_data *data);
-void mx_get_time(struct stat st, t_data *data);
+void mx_get_flag_l(struct stat st, t_const *cnst);
 
-char *mx_read_link(char *dirname);
+void mx_get_law(struct stat st, t_const *cnst);
+void mx_get_blocks(struct stat st, t_const *cnst);
+void mx_get_uid(struct stat st, t_const *cnst);
+void mx_get_gid(struct stat st, t_const *cnst);
+void mx_get_link(struct stat st, t_const *cnst);
+void mx_get_size_bytes(struct stat st, t_const *cnst);
+void mx_get_ino(struct stat st, t_const *cnst);
+void mx_get_time(struct stat st, t_const *cnst);
+void mx_read_link(char *dirname, t_const *cnst);
+
 void mx_print_to_file(char **file);
 void mx_check_control_char(char ***str);
 void mx_sort_file(char **str, int size);

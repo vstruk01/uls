@@ -1,9 +1,8 @@
 #include "uls.h"
 
-char *mx_read_link(char *dirname) {
+void mx_read_link(char *dirname, t_const *cnst) {
     unsigned int size_buf = 50;
     unsigned int tmp_size = 50;
-    char *linkstr = NULL;
 
     while (size_buf == tmp_size) {
         tmp_size += 20;
@@ -12,7 +11,6 @@ char *mx_read_link(char *dirname) {
         size_buf = readlink(dirname, tmp, tmp_size);
         free(tmp);
     }
-    linkstr = mx_strnew(size_buf);
-    readlink(dirname, linkstr, size_buf);
-    return linkstr;
+    cnst->strlink = mx_strnew(size_buf);
+    readlink(dirname, cnst->strlink, size_buf);
 }
