@@ -16,8 +16,9 @@ void mx_print_file_return_dir(t_data *data) {
             data->file[number++] = data->argv[i];  
             size++;
         }
-        else if (errno == 2 && !dir)
+        else if (errno == 2 && !dir) {
             printf("uls: %s: %s\n", data->argv[i], strerror(errno));
+        }
         else if (dir) {
             data->flag = 1;
             closedir(dir);

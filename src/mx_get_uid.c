@@ -1,7 +1,7 @@
 #include "uls.h"
 
 void mx_get_uid(struct stat st, t_const *cnst) {
-    struct passwd *pw = malloc(sizeof(struct passwd *));
+    struct passwd *pw;
 
     pw = getpwuid(st.st_uid);
     if (pw == NULL)

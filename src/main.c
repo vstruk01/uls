@@ -16,7 +16,8 @@ int main(int argc, char **argv) {
         lstat(".", &st);
     }
     mx_get_flag_l(st, cnst);
-    exit(0);
+    system("leaks -q uls");
+    // exit(0);
     data->flags = malloc(sizeof(int) * 5);
     data->flag_n = 0;
     data->flags[0] = 1; // -a

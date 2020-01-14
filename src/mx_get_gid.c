@@ -1,7 +1,7 @@
 #include "uls.h"
 
 void mx_get_gid(struct stat st, t_const *cnst) {
-    struct group *gr = malloc(sizeof(struct group *));
+    struct group *gr;
 
     gr = getgrgid(st.st_gid);
     if (gr == NULL)

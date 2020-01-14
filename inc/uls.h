@@ -18,7 +18,9 @@
 #include <pwd.h>
 #include <sys/errno.h>
 
-#define HALF_YEAR 15768000
+#define MX_HALF_YEAR 15768000
+#define MX_MINOR(x) ((x) & 0xFFFFFF)
+#define MX_MAJOR(x) (((x) >> 24) & 0xFF)
 
 typedef struct s_file {
     char *d_name;
@@ -27,20 +29,28 @@ typedef struct s_file {
 
 typedef struct s_data_const {
     time_t time;
+    char *stracl;
     char *dirname;
     char *strrwx;
     char *strtime;
     char *strlink;
     char *strgid;
     char *struid;
-    int ino;
-    int size_bytes;
-    int link;
-    int blocks;
+    char *strmaj;
+    char *strmin;
+    int min;
+    int maj;
+    long ino;
+    long rdev;
+    long dev;
+    long size_bytes;
+    long link;
+    long blocks;
     struct s_data_const *next;
 } t_const;
 
 typedef struct s_big_data {
+    struct stat st;
     char **file;
     int *flags;
     char **argv_dir;
@@ -59,6 +69,12 @@ typedef struct s_big_data {
 
 void mx_get_flag_l(struct stat st, t_const *cnst);
 
+bool mx_isspecial(t_const *cnst);
+bool mx_islink(t_const *cnst);
+void mx_get_acl(t_const *cnst);
+void mx_get_minmaj(t_const *cnst);
+void mx_get_rdev(struct stat st, t_const *cnst);
+void mx_get_dev(struct stat st, t_const *cnst);
 void mx_get_law(struct stat st, t_const *cnst);
 void mx_get_blocks(struct stat st, t_const *cnst);
 void mx_get_uid(struct stat st, t_const *cnst);

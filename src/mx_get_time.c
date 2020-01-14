@@ -17,9 +17,9 @@ void mx_get_time(struct stat st, t_const *cnst){
 static void strtime(char *tmp, t_const *cnst) {
     time_t now = time(NULL);
     char *new = mx_strnew(12);
-    tmp += 4;
 
-    if ((now - cnst->time) < HALF_YEAR)
+    tmp += 4;
+    if ((now - cnst->time) < MX_HALF_YEAR)
         mx_strncpy(new, tmp, 12);
     else {
         mx_strncpy(new, tmp, 7);

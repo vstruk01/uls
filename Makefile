@@ -19,7 +19,12 @@ get_blocks \
 get_law \
 get_flag_l \
 get_size_bytes \
-
+get_dev \
+get_rdev \
+get_minmaj \
+get_acl \
+isspecial \
+islink \
 
 INC = uls.h
 INCMX = libmx.h
