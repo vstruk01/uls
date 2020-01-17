@@ -5,8 +5,8 @@ void mx_get_acl(t_const *cnst) {
     ssize_t attr = 0;
 
     cnst->stracl = NULL;
-    attr = listxattr(cnst->dirname, NULL, 0, XATTR_NOFOLLOW);
-    acl = acl_get_file(cnst->dirname, ACL_TYPE_EXTENDED);
+    attr = listxattr(cnst->name, NULL, 0, XATTR_NOFOLLOW);
+    acl = acl_get_file(cnst->name, ACL_TYPE_EXTENDED);
     if (attr > 0) {
         cnst->stracl = mx_strdup("@");
         return;

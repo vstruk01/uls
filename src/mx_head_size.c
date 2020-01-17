@@ -1,9 +1,9 @@
 #include "uls.h"
 
-int mx_head_size(t_file *head) {
+void mx_head_size(t_const *cnst, t_data *data) {
     int size = 0;
 
-    for (;head != NULL; size++)
-        head = head->next;
-    return size;
+    for (;cnst != NULL; size++)
+        cnst = cnst->next;
+    data->size = size;
 }

@@ -25,6 +25,7 @@ static void strtime(char *tmp, t_const *cnst) {
         mx_strncpy(new, tmp, 7);
         tmp += 15;
         mx_strcat(new, tmp);
+        new[12] = '\0';
     }
     cnst->strtime = new;
 }

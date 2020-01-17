@@ -1,6 +1,9 @@
 #include "uls.h"
 
-void mx_get_flag_l(struct stat st, t_const *cnst) {
+void mx_get_flag_l(t_const *cnst) {
+    struct stat st;
+
+    lstat(cnst->name, &st);
     mx_get_blocks(st, cnst); // -s
     mx_get_uid(st, cnst); 
     mx_get_gid(st, cnst);
@@ -13,20 +16,25 @@ void mx_get_flag_l(struct stat st, t_const *cnst) {
     mx_get_rdev(st, cnst); // FOR CHAR SP
     mx_get_minmaj(cnst); // CHAR SP
     mx_get_acl(cnst); // ACL
-    // printf("ACL -> %s\n", cnst->stracl);
-    // printf("strmin -> %s\n", cnst->strmin);
-    // printf("strmaj -> %s\n", cnst->strmaj);
-    // printf("maj -> %d\n", cnst->maj);
-    // printf("min -> %d\n", cnst->min);
-    // printf("strlink -> %s\n", cnst->strlink);
-    // printf("gid -> %s\n", cnst->strgid);
-    // printf("uid -> %s\n", cnst->struid);
+    mx_read_link(cnst);
+    // printf("%s", cnst->strrwx); //strrwx 
+    // cnst->stracl != NULL ? printf("%s ", cnst->stracl) : printf("  "); //ACL
+    // printf("%lu ", cnst->link); //link
+    // printf("%s  ", cnst->struid);
+    // printf("%s  ", cnst->strgid);
+    // printf("%lu ", cnst->size_bytes);
+    // // exit(0);
+    // printf("%s ", cnst->strtime);
+    // printf("%s", cnst->dirname);
+    // if (cnst->strrwx[0] == 'l')
+    //     printf(" -> %s", cnst->strlink);
+    // printf("\n");
+    
+    //printf("strmin -> %s\n", cnst->strmin);
+    //printf("strmaj -> %s\n", cnst->strmaj);
+    //printf("maj -> %d\n", cnst->maj);
+    //printf("min -> %d\n", cnst->min);
     // printf("bloks -> %lu\n", cnst->blocks);
-    // printf("sizebytes -> %lu\n", cnst->size_bytes);
     // printf("ino -> %lu\n", cnst->ino);
-    // printf("strtime -> %s\n", cnst->strtime);
-    // printf("link -> %lu\n", cnst->link);
-    // printf("strrwx -> %s\n", cnst->strrwx);
-    // printf("dirname -> %s\n", cnst->dirname);
     // system("leaks -q uls");
 }

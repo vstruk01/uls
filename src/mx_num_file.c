@@ -1,13 +1,15 @@
 #include "uls.h"
 
-int mx_num_file(t_file *head) {
+void mx_num_file(t_const *cnst, t_data *data) {
     int num = 0;
 
-    while (head != NULL) {
-        if (head->d_name != NULL && num < mx_strlen(head->d_name))
-            num = mx_strlen(head->d_name);
-        head = head->next;
+    while (cnst != NULL) {
+        if (cnst->name != NULL && num < mx_strlen(cnst->name))
+            num = mx_strlen(cnst->name);
+        cnst = cnst->next;
     }
     num = num + ( 8 - (num % 8));
-    return num;
+    data->max_len_name = num;
+    data->width = data->colums / data->max_len_name;
+    data->size_all = mx_size_a(data);
 }

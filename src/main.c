@@ -1,26 +1,10 @@
 #include "uls.h"
 
 int main(int argc, char **argv) {
-    struct stat st;
-    t_const *cnst = malloc(sizeof(t_const));
     t_data *data = malloc(sizeof(t_data));
-
-    if (argc > 1) {
-        cnst->dirname = argv[1];
-        mx_read_link(argv[1], cnst);
-        lstat(argv[1], &st);
-    }
-    else {
-        cnst->dirname = ".";
-        mx_read_link(".", cnst);
-        lstat(".", &st);
-    }
-    mx_get_flag_l(st, cnst);
-    system("leaks -q uls");
-    // exit(0);
     data->flags = malloc(sizeof(int) * 5);
     data->flag_n = 0;
-    data->flags[0] = 1; // -a
+    data->flags[0] = 0; // -a
     data->flags[1] = 0; // -A
     data->flags[2] = 0; // -1
     data->flags[3] = 0; // -C uls
@@ -28,19 +12,22 @@ int main(int argc, char **argv) {
     data->argv = argv;
     data->argc = argc;
     data->colums = mx_columns();
-    argv++;
-    mx_sort_file(argv, argc - 1);
+    mx_sort_file(argv += 1, argc - 1);
+    argv--;
     if (argc == 1) {
-        data->file = mx_read_dir(".", data);
-        mx_print_file(data->file, data);
-        if (errno)
-            return 1;
+        mx_read_dir(".", data);
+        mx_print_file(data);
     }
+    else {
+        mx_read_dir(argv[1], data);
+        mx_print_file(data);
+    }
+    exit(0);
     mx_print_file_return_dir(data);
     for (int i = 0; i < argc; i++) {
         free(data->file);
         data->file = NULL;
-        data->file = mx_read_dir(argv[i], data);
+        mx_read_dir(argv[i], data);
         if (argc > 2 && data->file != NULL) {
             if (data->flag_n == 1)
                 printf("\n");    
@@ -54,13 +41,14 @@ int main(int argc, char **argv) {
             printf("uls: %s: %s\n", argv[i], (strerror(errno)));
         }
         else if (data->file != NULL)
-            mx_print_file(data->file, data);
+            mx_print_file(data);
         for (int i = 0; i < data->size_all && data->file != NULL; i++)
             if ((data->file)[i] != NULL)    
                 free((data->file)[i]);
         free(data->file);
         data->file = NULL;
     }
+    system("leaks -q uls");
     if (errno)
         return 1;
     // printf("\n");

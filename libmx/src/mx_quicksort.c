@@ -23,17 +23,15 @@ static char **cycle(char **arr, int**all,  char *pivot, int *count) {
 int mx_quicksort(char **arr, int left, int right){
     int count = 0;
     int *all = malloc(sizeof(int) * 2);
+    char *pivot = NULL;
 
     if(left < right) {
         all[0] = left;
         all[1] = right;
-        char *pivot = arr[(all[0] + all[1]) / 2];
+        pivot = arr[(all[0] + all[1]) / 2];
         arr = cycle(arr, &all, pivot, &count);
-        int i = all[0];
-        int j = all[1];
-
-        count += mx_quicksort(arr, left, j);
-        count += mx_quicksort(arr, i, right);
+        count += mx_quicksort(arr, left, all[1]);
+        count += mx_quicksort(arr, all[0], right);
     }
     return count;
 }

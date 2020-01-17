@@ -1,6 +1,6 @@
 #include "uls.h"
 
-void mx_read_link(char *dirname, t_const *cnst) {
+void mx_read_link(t_const *cnst) {
     unsigned int size_buf = 50;
     unsigned int tmp_size = 50;
 
@@ -8,9 +8,9 @@ void mx_read_link(char *dirname, t_const *cnst) {
         tmp_size += 20;
         char *tmp = mx_strnew(tmp_size);
 
-        size_buf = readlink(dirname, tmp, tmp_size);
+        size_buf = readlink(cnst->name, tmp, tmp_size);
         free(tmp);
     }
     cnst->strlink = mx_strnew(size_buf);
-    readlink(dirname, cnst->strlink, size_buf);
+    readlink(cnst->name, cnst->strlink, size_buf);
 }

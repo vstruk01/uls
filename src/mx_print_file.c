@@ -1,8 +1,10 @@
 #include "uls.h"
 
-void mx_print_file(char **file, t_data *data) {
-    data->width = data->colums / data->num;
-    if (isatty(1) == 0)
+void mx_print_file(t_data *data) {
+    char **file = data->name_all;
+    int max_len = data->max_len_name;
+
+    if (data->isattyflag == 1)
         mx_print_to_file(file);
     else {
         mx_check_control_char(&file);
@@ -12,10 +14,11 @@ void mx_print_file(char **file, t_data *data) {
             if (file[i] != NULL) {
                 printf("%s", file[i]);
                 if ((i + 1) % data->width != 0 && file[i + 1] != NULL)    
-                    for (int j = mx_strlen(file[i]); j < data->num; j++)
+                    for (int j = mx_strlen(file[i]); j < max_len; j++)
                         printf(" ");
             }
         }
-        printf("\n");
+        if (data->size != 0)
+            printf("\n");
     }
 }

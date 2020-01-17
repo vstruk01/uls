@@ -46,19 +46,20 @@ static void print(t_data *data, int size) {
         tmp[i] = data->argv_file[i];
     mx_sort_file(tmp, size);
     result = mx_get_result(tmp, data);
-    mx_print_file(result, data);
+    data->file = result;
+    mx_print_file(data);
     free(tmp);
     free(result);
 }
 
 static t_data *get_data(t_data *data, int size) {
-    data->num = 0;
+    data->num_name = 0;
     for (int i = 0; i < size; i++)
-        if (data->file[i] != NULL && data->num < mx_strlen(data->file[i]))
-            data->num = mx_strlen(data->file[i]);
-    data->num = data->num + (8 - (data->num % 8));
+        if (data->file[i] != NULL && data->num_name < mx_strlen(data->file[i]))
+            data->num_name = mx_strlen(data->file[i]);
+    data->num_name = data->num_name + (8 - (data->num_name % 8));
     data->size = size;
-    data->width = data->colums / data->num;
+    data->width = data->colums / data->num_name;
     data->size_all = mx_size_a(data);
     return data;
 }
