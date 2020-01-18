@@ -26,4 +26,5 @@ static void hex(int number, t_const *cnst, int flag) {
         cnst->strmin = result;
     if (!flag)
         cnst->strmaj = result;
+    free(hexstr);
 }

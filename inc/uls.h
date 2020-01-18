@@ -24,6 +24,7 @@
 
 typedef struct s_data_const {
     time_t time;
+    char *ful_n;
     char *stracl;
     char *name;
     char *strrwx;
@@ -45,13 +46,14 @@ typedef struct s_data_const {
 } t_const;
 
 typedef struct s_big_data {
-    struct t_const *data;
+    t_const *cnst;
     char **name_all;
     char **file;
     int *flags;
     char **argv_dir;
     char **argv_file;
     char **argv;
+    char *path;
     bool isattyflag;
     int max_len_name;
     int num_name;

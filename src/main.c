@@ -11,17 +11,19 @@ int main(int argc, char **argv) {
     data->flags[4] = 0; // -l
     data->argv = argv;
     data->argc = argc;
-    data->colums = mx_columns();
     mx_sort_file(argv += 1, argc - 1);
     argv--;
     if (argc == 1) {
+        data->path = argv[1];
         mx_read_dir(".", data);
         mx_print_file(data);
     }
     else {
+        data->path = argv[1];
         mx_read_dir(argv[1], data);
-        mx_print_file(data);
+        // mx_print_file(data);
     }
+    system("leaks -q uls");
     exit(0);
     mx_print_file_return_dir(data);
     for (int i = 0; i < argc; i++) {

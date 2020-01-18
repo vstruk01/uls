@@ -10,15 +10,15 @@ void mx_print_file(t_data *data) {
         mx_check_control_char(&file);
         for (int i = 0; i < data->size_all && file != NULL; i++) {
             if (i % data->width == 0 && i != 0)
-                printf("\n");
+                mx_printstr("\n");
             if (file[i] != NULL) {
-                printf("%s", file[i]);
+                mx_printstr(file[i]);
                 if ((i + 1) % data->width != 0 && file[i + 1] != NULL)    
                     for (int j = mx_strlen(file[i]); j < max_len; j++)
-                        printf(" ");
+                        mx_printstr(" ");
             }
         }
         if (data->size != 0)
-            printf("\n");
+            mx_printstr("\n");
     }
 }

@@ -2,8 +2,8 @@
 
 void mx_get_flag_l(t_const *cnst) {
     struct stat st;
-
-    lstat(cnst->name, &st);
+    
+    cnst->ful_n == NULL ? lstat(cnst->name, &st) : lstat(cnst->ful_n, &st);
     mx_get_blocks(st, cnst); // -s
     mx_get_uid(st, cnst); 
     mx_get_gid(st, cnst);
@@ -23,9 +23,8 @@ void mx_get_flag_l(t_const *cnst) {
     // printf("%s  ", cnst->struid);
     // printf("%s  ", cnst->strgid);
     // printf("%lu ", cnst->size_bytes);
-    // // exit(0);
     // printf("%s ", cnst->strtime);
-    // printf("%s", cnst->dirname);
+    // printf("%s", cnst->name);
     // if (cnst->strrwx[0] == 'l')
     //     printf(" -> %s", cnst->strlink);
     // printf("\n");

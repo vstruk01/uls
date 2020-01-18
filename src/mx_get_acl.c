@@ -3,12 +3,14 @@
 void mx_get_acl(t_const *cnst) {
     acl_t acl = NULL;
     ssize_t attr = 0;
+    char *name = cnst->ful_n == NULL ? cnst->name : cnst->ful_n;
 
     cnst->stracl = NULL;
-    attr = listxattr(cnst->name, NULL, 0, XATTR_NOFOLLOW);
-    acl = acl_get_file(cnst->name, ACL_TYPE_EXTENDED);
+    attr = listxattr(name, NULL, 0, XATTR_NOFOLLOW);
+    acl = acl_get_file(name, ACL_TYPE_EXTENDED);
     if (attr > 0) {
         cnst->stracl = mx_strdup("@");
+        acl_free(acl);
         return;
     }
     else if (acl != NULL) {
