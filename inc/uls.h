@@ -34,6 +34,10 @@ typedef struct s_data_const {
     char *struid;
     char *strmaj;
     char *strmin;
+    char *strlinkcount;
+    char *strbytes;
+    char *strblocks;
+    char *strino;
     int min;
     int maj;
     long ino;
@@ -55,7 +59,6 @@ typedef struct s_big_data {
     char **argv;
     char *path;
     bool isattyflag;
-    int max_len_name;
     int num_name;
     int flag_n;
     int colums;
@@ -64,10 +67,22 @@ typedef struct s_big_data {
     int width;
     int argc;
     int flag;
+    int size_list;
+    int max_len_name;
+    bool flag_minmaj;
+    int max_len_uid;
+    int max_len_gid;
+    int max_len_bytes;
+    int max_len_link;
+    int max_len_min;
+    int max_len_maj;
+    bool acl;
+    int total;
 } t_data;
 
-void mx_get_flag_l(t_const *cnst);
-
+void mx_sort_my_list(t_const *data_l, t_data *data);
+void mx_print_l(t_const *cnst, t_data *data);
+void mx_get_flag_l(t_const *cnst, t_data *data);
 bool mx_isspecial(t_const *cnst);
 bool mx_islink(t_const *cnst);
 void mx_get_acl(t_const *cnst);

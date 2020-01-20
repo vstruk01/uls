@@ -25,6 +25,8 @@ get_minmaj \
 get_acl \
 isspecial \
 islink \
+print_l \
+sort_my_list \
 
 INC = uls.h
 INCMX = libmx.h

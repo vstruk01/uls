@@ -21,7 +21,7 @@ int main(int argc, char **argv) {
     else {
         data->path = argv[1];
         mx_read_dir(argv[1], data);
-        // mx_print_file(data);
+        mx_print_file(data);
     }
     system("leaks -q uls");
     exit(0);

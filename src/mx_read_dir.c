@@ -18,7 +18,9 @@ void mx_read_dir(char *dirname, t_data *data) {
     mx_head_size(data_l, data);
     mx_num_file(data_l, data);
     data->cnst = data_l;
+    mx_sort_my_list(data_l, data);
     get_strstr(data_l, data);
+    mx_print_l(data_l, data);
 }
 
 static void flag_a_A(t_const *data_l, DIR *dir, int *flags, t_data *data) {
@@ -62,14 +64,7 @@ static void get_strstr(t_const *data_l, t_data *data) {
 static t_const *get_name(t_const *data_l, struct dirent *entry, t_data *data) {
     data_l->next = malloc(sizeof(t_const));
     data_l->next->name = mx_strdup(entry->d_name);
-    if (data->path !=  NULL) {
-        char *tmp = mx_strjoin(data->path, "/");
-        data_l->next->ful_n = mx_strjoin(tmp, data_l->next->name);
-        free(tmp);
-    }
-    else
-        data_l->next->ful_n = NULL;
-    mx_get_flag_l(data_l->next);
+    data->size_list += 1;
     data_l = data_l->next;
     data_l->next = NULL;
     return data_l;

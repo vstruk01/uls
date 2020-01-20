@@ -11,7 +11,6 @@ void mx_get_acl(t_const *cnst) {
     if (attr > 0) {
         cnst->stracl = mx_strdup("@");
         acl_free(acl);
-        return;
     }
     else if (acl != NULL) {
         cnst->stracl = mx_strdup("+");
