@@ -17,6 +17,7 @@ void mx_sort_my_list(t_const *data_l, t_data *data) {
     }
     data_l = data->cnst;
     pathname(data, data_l);
+    data->strtotal = mx_itoa(data->total);
 }
 
 static void pathname(t_data *data, t_const *data_l) {

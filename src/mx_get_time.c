@@ -1,8 +1,8 @@
 #include "uls.h"
 
-static void strtime(char *tmp, t_const *cnst);
+static void strtime(char *tmp, t_const *cnst, t_data *data);
 
-void mx_get_time(struct stat st, t_const *cnst){
+void mx_get_time(struct stat st, t_const *cnst, t_data *data){
     int flag = 1;
     char *tmp = NULL;
 
@@ -11,15 +11,18 @@ void mx_get_time(struct stat st, t_const *cnst){
     else
         cnst->time = st.st_atime;
     tmp = ctime(&cnst->time);
-    strtime(tmp, cnst);
+    strtime(tmp, cnst, data);
 }
 
-static void strtime(char *tmp, t_const *cnst) {
+static void strtime(char *tmp, t_const *cnst, t_data *data) {
     time_t now = time(NULL);
-    char *new = mx_strnew(12);
+    char *new = NULL;
 
+    new = data->flags[6] == 1 ? mx_strnew(20) : mx_strnew(12);
     tmp += 4;
-    if ((now - cnst->time) < MX_HALF_YEAR)
+    if (data->flags[6])
+        mx_strncpy(new, tmp, 20);
+    else if ((now - cnst->time) < MX_HALF_YEAR)
         mx_strncpy(new, tmp, 12);
     else {
         mx_strncpy(new, tmp, 7);

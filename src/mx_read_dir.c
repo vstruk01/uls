@@ -20,7 +20,6 @@ void mx_read_dir(char *dirname, t_data *data) {
     data->cnst = data_l;
     mx_sort_my_list(data_l, data);
     get_strstr(data_l, data);
-    mx_print_l(data_l, data);
 }
 
 static void flag_a_A(t_const *data_l, DIR *dir, int *flags, t_data *data) {

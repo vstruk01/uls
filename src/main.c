@@ -2,13 +2,17 @@
 
 int main(int argc, char **argv) {
     t_data *data = malloc(sizeof(t_data));
-    data->flags = malloc(sizeof(int) * 5);
+    data->flags = malloc(sizeof(int) * 9);
     data->flag_n = 0;
     data->flags[0] = 0; // -a
     data->flags[1] = 0; // -A
     data->flags[2] = 0; // -1
-    data->flags[3] = 0; // -C uls
+    data->flags[3] = 0; // -C
     data->flags[4] = 0; // -l
+    data->flags[5] = 0; // -o
+    data->flags[6] = 0; // -T
+    data->flags[7] = 1; // -i
+    data->flags[8] = 1; // -s
     data->argv = argv;
     data->argc = argc;
     mx_sort_file(argv += 1, argc - 1);
@@ -16,12 +20,14 @@ int main(int argc, char **argv) {
     if (argc == 1) {
         data->path = argv[1];
         mx_read_dir(".", data);
-        mx_print_file(data);
+        mx_print_l(data->cnst, data);
+        // mx_print_file(data);
     }
     else {
         data->path = argv[1];
         mx_read_dir(argv[1], data);
-        mx_print_file(data);
+        mx_print_l(data->cnst, data);
+        // mx_print_file(data);
     }
     system("leaks -q uls");
     exit(0);

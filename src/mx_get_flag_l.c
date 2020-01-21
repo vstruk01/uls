@@ -12,7 +12,7 @@ void mx_get_flag_l(t_const *cnst, t_data *data) {
     mx_get_link(st, cnst);
     mx_get_size_bytes(st, cnst); 
     mx_get_ino(st, cnst); // -i
-    mx_get_time(st, cnst); // atime mtime 
+    mx_get_time(st, cnst, data); // atime mtime 
     mx_get_law(st, cnst); //permissions
     mx_get_dev(st, cnst); 
     mx_get_rdev(st, cnst); // FOR CHAR SP
@@ -40,4 +40,8 @@ static void len(t_data *data, t_const *cnst) {
         data->max_len_maj = mx_strlen(cnst->strmaj);
     if (mx_strlen(cnst->strmin) > data->max_len_min && cnst->strmin[0] != '0')
         data->max_len_min = mx_strlen(cnst->strmin);
+    if (mx_strlen(cnst->strino) > data->max_len_ino)
+        data->max_len_ino = mx_strlen(cnst->strino);
+    if (mx_strlen(cnst->strblocks) > data->max_len_blocks)
+        data->max_len_blocks = mx_strlen(cnst->strblocks);
 }

@@ -40,7 +40,7 @@ typedef struct s_data_const {
     char *strino;
     int min;
     int maj;
-    long ino;
+    long long ino;
     long rdev;
     long dev;
     long size_bytes;
@@ -51,6 +51,7 @@ typedef struct s_data_const {
 
 typedef struct s_big_data {
     t_const *cnst;
+    char *strtotal;
     char **name_all;
     char **file;
     int *flags;
@@ -76,10 +77,18 @@ typedef struct s_big_data {
     int max_len_link;
     int max_len_min;
     int max_len_maj;
+    int max_len_ino;
+    int max_len_blocks;
     bool acl;
     int total;
 } t_data;
 
+void mx_control_char_name(char **str);
+void mx_check_control_char(char ***str);
+
+void mx_printstr_update(char *str1, char *str2, char *str3,
+char *str4, char *str5);
+void mx_print_spase(int count);
 void mx_sort_my_list(t_const *data_l, t_data *data);
 void mx_print_l(t_const *cnst, t_data *data);
 void mx_get_flag_l(t_const *cnst, t_data *data);
@@ -96,11 +105,11 @@ void mx_get_gid(struct stat st, t_const *cnst);
 void mx_get_link(struct stat st, t_const *cnst);
 void mx_get_size_bytes(struct stat st, t_const *cnst);
 void mx_get_ino(struct stat st, t_const *cnst);
-void mx_get_time(struct stat st, t_const *cnst);
+void mx_get_time(struct stat st, t_const *cnst, t_data *data);
 void mx_read_link(t_const *cnst);
 
+char *mx_itoa_sp(long long number);
 void mx_print_to_file(char **file);
-void mx_check_control_char(char ***str);
 void mx_sort_file(char **str, int size);
 int mx_size_a(t_data *data);
 char **mx_get_result(char **file, t_data *data);

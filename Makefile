@@ -27,6 +27,10 @@ isspecial \
 islink \
 print_l \
 sort_my_list \
+print_spase \
+printstr_update \
+control_char_name \
+itoa_sp \
 
 INC = uls.h
 INCMX = libmx.h
