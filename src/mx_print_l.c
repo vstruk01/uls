@@ -3,9 +3,9 @@
 static void print(t_data *data, t_const *cnst);
 
 void mx_print_l(t_const *cnst, t_data *data) {
-    mx_control_char_name(&cnst->name);
     mx_printstr_update("total ", data->strtotal, "\n", NULL, NULL);
     while (cnst != NULL) {
+        mx_control_char_name(&cnst->name);
         if (data->flags[7]) {
             mx_print_spase(data->max_len_ino - mx_strlen(cnst->strino));
             mx_printstr_update(cnst->strino, " ", NULL, NULL, NULL);

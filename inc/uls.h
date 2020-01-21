@@ -83,9 +83,16 @@ typedef struct s_big_data {
     int total;
 } t_data;
 
+void mx_sort_time(t_const *cnst, t_data *data);
+void mx_sort_size(t_data *data, t_const *cnst);
+void mx_sort_all(t_data *data, t_const *cnst);
+void mx_sort_revers(t_const *cnst, t_data *data);
+
 void mx_control_char_name(char **str);
 void mx_check_control_char(char ***str);
 
+void mx_get_data(t_data *data, t_const *cnst);
+void mx_full_path(t_data *data, t_const *data_l);
 void mx_printstr_update(char *str1, char *str2, char *str3,
 char *str4, char *str5);
 void mx_print_spase(int count);

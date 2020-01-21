@@ -31,6 +31,12 @@ print_spase \
 printstr_update \
 control_char_name \
 itoa_sp \
+full_path \
+sort_revers \
+sort_all \
+get_data \
+sort_size \
+sort_time \
 
 INC = uls.h
 INCMX = libmx.h

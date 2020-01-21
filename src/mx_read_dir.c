@@ -18,7 +18,8 @@ void mx_read_dir(char *dirname, t_data *data) {
     mx_head_size(data_l, data);
     mx_num_file(data_l, data);
     data->cnst = data_l;
-    mx_sort_my_list(data_l, data);
+    mx_sort_all(data, data_l);
+    mx_get_data(data, data_l);
     get_strstr(data_l, data);
 }
 
@@ -51,7 +52,7 @@ static void get_strstr(t_const *data_l, t_data *data) {
         file[i] = data_l->name;
         data_l = data_l->next;
     }
-    mx_sort_file(file, data->size);
+    // mx_sort_file(file, data->size);
     if (isatty(1) == 0) {
         data->name_all = file;
         data->isattyflag = 1;

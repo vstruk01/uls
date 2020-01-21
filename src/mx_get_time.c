@@ -3,10 +3,9 @@
 static void strtime(char *tmp, t_const *cnst, t_data *data);
 
 void mx_get_time(struct stat st, t_const *cnst, t_data *data){
-    int flag = 1;
     char *tmp = NULL;
 
-    if (flag)
+    if (data->flags[13])
         cnst->time = st.st_mtime;
     else
         cnst->time = st.st_atime;
