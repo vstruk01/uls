@@ -2,8 +2,8 @@
 
 void mx_print_to_file(char **file) {
     for (int i = 0; file[i] != NULL; i++) {
-        mx_printstr(file[i]);
-        mx_printstr("\n");
+        printf("%s", file[i]);
+        printf("\n");
     }
 }
 

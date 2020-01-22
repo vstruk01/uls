@@ -40,6 +40,7 @@ typedef struct s_data_const {
     char *strino;
     int min;
     int maj;
+    long nsec;
     long long ino;
     long rdev;
     long dev;
@@ -83,6 +84,7 @@ typedef struct s_big_data {
     int total;
 } t_data;
 
+
 void mx_sort_time(t_const *cnst, t_data *data);
 void mx_sort_size(t_data *data, t_const *cnst);
 void mx_sort_all(t_data *data, t_const *cnst);
@@ -125,6 +127,6 @@ void mx_head_size(t_const *cnst, t_data *data);
 int mx_columns();
 void mx_print_file(t_data *data);
 void mx_num_file(t_const *cnst, t_data *data);
-void mx_read_dir(char *dirname, t_data *data);
+int mx_read_dir(char *dirname, t_data *data);
 
 #endif

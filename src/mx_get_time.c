@@ -6,9 +6,9 @@ void mx_get_time(struct stat st, t_const *cnst, t_data *data){
     char *tmp = NULL;
 
     if (data->flags[13])
-        cnst->time = st.st_mtime;
-    else
         cnst->time = st.st_atime;
+    else
+        cnst->time = st.st_mtime;
     tmp = ctime(&cnst->time);
     strtime(tmp, cnst, data);
 }

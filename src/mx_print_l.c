@@ -3,7 +3,8 @@
 static void print(t_data *data, t_const *cnst);
 
 void mx_print_l(t_const *cnst, t_data *data) {
-    mx_printstr_update("total ", data->strtotal, "\n", NULL, NULL);
+    if (cnst->next != NULL)
+        mx_printstr_update("total ", data->strtotal, "\n", NULL, NULL);
     while (cnst != NULL) {
         mx_control_char_name(&cnst->name);
         if (data->flags[7]) {
