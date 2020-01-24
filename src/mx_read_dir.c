@@ -5,7 +5,6 @@ static t_const *get_name(t_const *data_l, struct dirent *entry, t_data *data);
 static void flag_a_A(t_const *data_l, DIR *dir, int *flags, t_data *data);
 
 int mx_read_dir(char *dirname, t_data *data) {
-    // struct stat st;
     DIR *dir = opendir(dirname);
     t_const *data_l = malloc(sizeof(t_const));
     t_const *save = data_l;
@@ -31,11 +30,11 @@ int mx_read_dir(char *dirname, t_data *data) {
     data_l = save->next;
     free(save);
     closedir(dir);
-    mx_head_size(data_l, data);
-    mx_num_file(data_l, data);
     data->cnst = data_l;
     mx_sort_all(data, data_l);
     mx_get_data(data, data_l);
+    mx_get_is(data_l, data);
+    mx_num_file(data_l, data);
     get_strstr(data_l, data);
     return 1;
 }
@@ -66,7 +65,7 @@ static void get_strstr(t_const *data_l, t_data *data) {
     for (int i = 0; i <= data->size_all; i++)
         file[i] = NULL;
     for (int i = 0; data_l != NULL; i++) { 
-        file[i] = data_l->name;
+        file[i] = data_l->name_c;
         data_l = data_l->next;
     }
     if (isatty(1) == 0 || data->flags[2]) {
@@ -81,7 +80,7 @@ static void get_strstr(t_const *data_l, t_data *data) {
 static t_const *get_name(t_const *data_l, struct dirent *entry, t_data *data) {
     data_l->next = malloc(sizeof(t_const));
     data_l->next->name = mx_strdup(entry->d_name);
-    data->size_list += 1;
+    data->size += 1;
     data_l = data_l->next;
     data_l->next = NULL;
     return data_l;

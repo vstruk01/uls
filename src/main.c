@@ -2,43 +2,35 @@
 
 int main(int argc, char **argv) {
     t_data *data = malloc(sizeof(t_data));
-    data->flags = malloc(sizeof(int) * 14);
-    data->flag_n = 0;
-    data->flags[0] = 1; // -a
-    data->flags[1] = 0; // -A
-    data->flags[2] = 0; // -1
-    data->flags[3] = 0; // -C
-    data->flags[4] = 0; // -l
-    data->flags[5] = 0; // -o
-    data->flags[6] = 0; // -T
-    data->flags[7] = 0; // -i
-    data->flags[8] = 0; // -s
-    data->flags[9] = 0; // -f
-    data->flags[10] = 0; // -S
-    data->flags[11] = 0; // -t
-    data->flags[12] = 0; // -r
-    data->flags[13] = 0; // -u
-    data->argv = argv;
-    data->argc = argc;
-    mx_sort_file(argv += 1, argc - 1);
-    argv--;
-    if (argc == 1) {
-        data->path = argv[1];
+    data->dir_arr = NULL;
+    data->path = NULL;
+    mx_read_flags(argv, argc, data);
+    if (!data->dir_arr) {
         if (mx_read_dir(".", data)) {
             if (data->flags[4] || data->flags[5])
                 mx_print_l(data->cnst, data);
-            mx_print_file(data);
+            else {
+                if (data->flags[8] && data->size > 1)
+                    mx_printstr_update("total ",
+                    data->strtotal, "\n", NULL, NULL);
+                mx_print_file(data);
+            }
         }
     }
     else {
-        data->path = argv[1];
-        if (mx_read_dir(argv[1], data)) {
+        data->path = data->dir_arr[0];
+        if (mx_read_dir(data->dir_arr[0], data)) {
             if (data->flags[4] || data->flags[5])
                 mx_print_l(data->cnst, data);
-            mx_print_file(data);
+            else {
+                if (data->flags[8] && data->size > 1)
+                    mx_printstr_update("total ",
+                    data->strtotal, "\n", NULL, NULL);
+                mx_print_file(data);
+            }
         }
     }
-    system("leaks -q uls");
+    // system("leaks -q uls");
     exit(0);
     mx_print_file_return_dir(data);
     for (int i = 0; i < argc; i++) {

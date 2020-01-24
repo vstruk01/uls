@@ -37,6 +37,18 @@ sort_all \
 get_data \
 sort_size \
 sort_time \
+read_flags \
+count_flags_in_str \
+dir_arr \
+printerr \
+print_error \
+check_flags \
+basic_flags \
+flags_for_sort \
+other_flags \
+printerr_char \
+flags_into_arr \
+get_is \
 
 INC = uls.h
 INCMX = libmx.h

@@ -22,11 +22,17 @@
 #define MX_MINOR(x) ((x) & 0xFFFFFF)
 #define MX_MAJOR(x) (((x) >> 24) & 0xFF)
 
+typedef enum f_errors {
+    INVALID_ARGV,
+    INVALID_FLAGS
+} t_errors;
+
 typedef struct s_data_const {
     time_t time;
     char *ful_n;
     char *stracl;
     char *name;
+    char *name_c;
     char *strrwx;
     char *strtime;
     char *strlink;
@@ -82,6 +88,10 @@ typedef struct s_big_data {
     int max_len_blocks;
     bool acl;
     int total;
+//____________________________________________________//
+    char **dir_arr;
+    char *str;
+    char *dir_name;
 } t_data;
 
 
@@ -116,7 +126,21 @@ void mx_get_size_bytes(struct stat st, t_const *cnst);
 void mx_get_ino(struct stat st, t_const *cnst);
 void mx_get_time(struct stat st, t_const *cnst, t_data *data);
 void mx_read_link(t_const *cnst);
-
+void mx_get_is(t_const *cnst, t_data *data);
+// Мои
+void mx_flags_into_arr(char *s, t_data *app);
+void mx_read_flags(char **argv, int argc, t_data *app);
+void mx_count_flags_in_str(char **argv, t_data *app, int argc);
+int mx_dir_arr(char **argv, int argc, t_data *app);
+void mx_printerr(t_errors errors, char s);
+void mx_print_error(const char *s);
+void mx_check_flags(char *s, t_data *app);
+void mx_basic_flags(char *cont, t_data *app, int len);
+void mx_flags_for_sort(char *cont, t_data *app);
+void mx_other_flags(char *cont, t_data *app);
+void  mx_printerr_char(char s);
+void mx_flags_into_arr(char *s, t_data *app);
+//
 char *mx_itoa_sp(long long number);
 void mx_print_to_file(char **file);
 void mx_sort_file(char **str, int size);
