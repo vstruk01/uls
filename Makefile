@@ -5,7 +5,6 @@ columns \
 print_file \
 print_to_file \
 head_size \
-print_file_return_dir \
 get_result \
 size_all \
 read_link \
@@ -36,7 +35,6 @@ sort_revers \
 sort_all \
 get_data \
 sort_size \
-sort_time \
 read_flags \
 count_flags_in_str \
 dir_arr \
@@ -49,6 +47,9 @@ other_flags \
 printerr_char \
 flags_into_arr \
 get_is \
+creat_list \
+sort_time \
+get_file_col \
 
 INC = uls.h
 INCMX = libmx.h

@@ -10,7 +10,7 @@ void mx_check_flags(char *s, t_data *app) {
         // printf("0  a -> %d\n", app->flags[0]);
         // printf("1  A -> %d\n", app->flags[1]);
         // printf("2  1 -> %d\n", app->flags[2]);
-        // printf("3  C -> %d\n", app->flags[3]);
+        // printf("3  g -> %d\n", app->flags[3]);
         // printf("4  l -> %d\n", app->flags[4]);
         // printf("5  o -> %d\n", app->flags[5]);
         // printf("6  T -> %d\n", app->flags[6]);

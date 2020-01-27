@@ -1,87 +1,80 @@
 #include "uls.h"
 
-static void get_strstr(t_const *data_l, t_data *data);
-static t_const *get_name(t_const *data_l, struct dirent *entry, t_data *data);
-static void flag_a_A(t_const *data_l, DIR *dir, int *flags, t_data *data);
+static void print_error(t_data *data, char *name, t_sort *gen);
+static t_sort *get_name(struct dirent *entry,t_data *data, t_sort *gen);
+static void flag_a_A(DIR *dir, t_data *data, t_sort *gen);
 
 int mx_read_dir(char *dirname, t_data *data) {
     DIR *dir = opendir(dirname);
-    t_const *data_l = malloc(sizeof(t_const));
-    t_const *save = data_l;
+    t_const *data_l = NULL;
+    t_sort *general = malloc(sizeof(t_sort));
+    t_sort *tmp = NULL;
 
-    // lstat(dirname, &st);
-    // data_l->name = dirname;
-    // data->size = 1;
-    // mx_get_data(data, data_l);
-    // if (mx_islink(data_l)) {
-        // mx_head_size(data_l, data);
-        // mx_num_file(data_l, data);
-        // closedir(dir);
-        // data->cnst = data_l;
-        // return;
-    // }
     if (!dir) {
-        if (errno == 13 || errno == 9)
-            printf("uls: %s: %s\n", dirname, strerror(errno));
-        free(save);
+        print_error(data, dirname, general);
         return 0;
     }
-    flag_a_A(data_l, dir, data->flags, data);
-    data_l = save->next;
-    free(save);
-    closedir(dir);
-    data->cnst = data_l;
-    mx_sort_all(data, data_l);
-    mx_get_data(data, data_l);
+    flag_a_A(dir, data, general);
+    tmp = general;
+    general = general->next;
+    tmp->next = NULL;
+    free(tmp);
+    mx_sort_all(data, general);
+    data_l = data->cnst;
     mx_get_is(data_l, data);
     mx_num_file(data_l, data);
-    get_strstr(data_l, data);
+    mx_get_file_col(data_l, data);
     return 1;
 }
 
-static void flag_a_A(t_const *data_l, DIR *dir, int *flags, t_data *data) {
+static void print_error(t_data *data, char *name, t_sort *gen) {
+    while (mx_get_char_index(name, '/') >= 0)
+        name++;
+    mx_print_error("uls: ");
+    mx_print_error(name);
+    mx_print_error(": ");
+    mx_print_error(strerror(errno));
+    mx_print_error("\n");
+    data->errors = 1;
+    free(gen);
+}
+
+static void flag_a_A(DIR *dir, t_data *data, t_sort *gen) {
     struct dirent *entry = NULL;
+    int *flags = data->flags;
 
     if (flags[0] == 1 || flags[9] == 1)
         while ((entry = readdir(dir)) != NULL)
-            data_l = get_name(data_l, entry, data);
+            gen = get_name(entry, data, gen);
     else if (flags[1] == 1) {
         while ((entry = readdir(dir)) != NULL)
             if (strcmp(entry->d_name, ".") != 0 
                 && strcmp(entry->d_name, "..") != 0) {
-                data_l = get_name(data_l, entry, data);
+                gen = get_name(entry, data, gen);
             }
     }
     else
         while ((entry = readdir(dir)) != NULL)
             if (entry->d_name[0] != '.')
-                data_l = get_name(data_l, entry, data);
+                gen = get_name(entry, data, gen);
+    closedir(dir);
 }
 
-static void get_strstr(t_const *data_l, t_data *data) {
-    char **file = NULL;
+static t_sort *get_name(struct dirent *entry, t_data *data, t_sort *gen) {
+    gen->next = malloc(sizeof(t_sort));
+    gen->next->cnst = malloc(sizeof(t_const));
+    gen->next->cnst->name = mx_strdup(entry->d_name);
+    if (data->path !=  NULL) {
+        char *tmp = mx_strjoin(data->path, "/");
 
-    file = malloc(sizeof(char *) * (data->size_all + 1));
-    for (int i = 0; i <= data->size_all; i++)
-        file[i] = NULL;
-    for (int i = 0; data_l != NULL; i++) { 
-        file[i] = data_l->name_c;
-        data_l = data_l->next;
+        gen->next->cnst->ful_n = mx_strjoin(tmp, gen->next->cnst->name);
+        free(tmp);
     }
-    if (isatty(1) == 0 || data->flags[2]) {
-        data->name_all = file;
-        data->isattyflag = 1;
-        return;
-    }
-    data->name_all = mx_get_result(file, data);
-    free(file);
-}
-
-static t_const *get_name(t_const *data_l, struct dirent *entry, t_data *data) {
-    data_l->next = malloc(sizeof(t_const));
-    data_l->next->name = mx_strdup(entry->d_name);
+    else
+        gen->next->cnst->ful_n = NULL;
+    mx_get_flag_l(gen->next->cnst, data);
     data->size += 1;
-    data_l = data_l->next;
-    data_l->next = NULL;
-    return data_l;
+    gen = gen->next;
+    gen->next = NULL;
+    return gen;
 }

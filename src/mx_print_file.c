@@ -5,7 +5,7 @@ void mx_print_file(t_data *data) {
     int max_len = data->max_len_name;
 
     if (data->isattyflag == 1 || data->flags[2])
-        mx_print_to_file(file);
+        mx_print_to_file(file, data);
     else {
         mx_check_control_char(&file);
         for (int i = 0; i < data->size_all && file != NULL; i++) {

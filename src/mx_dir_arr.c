@@ -26,7 +26,7 @@ int mx_dir_arr(char **argv, int argc, t_data *app) {
 
 static t_data *get_dir(t_data *app, char **argv, int i, int argc) {
     for (int n = 0; i < argc; i++, n++) {
-        app->dir_arr[n] = mx_strdup(argv[i]);                  // dir_arr -> cодержит в себе только папки 
+        app->dir_arr[n] = mx_strdup(argv[i]);
     }
     return app;
 }

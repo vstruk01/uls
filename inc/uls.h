@@ -56,26 +56,24 @@ typedef struct s_data_const {
     struct s_data_const *next;
 } t_const;
 
+typedef struct s_sort_list {
+    t_const *cnst;
+    struct s_sort_list *next;
+} t_sort;
+
 typedef struct s_big_data {
     t_const *cnst;
+    t_sort *sort;
     char *strtotal;
     char **name_all;
     char **file;
     int *flags;
-    char **argv_dir;
-    char **argv_file;
-    char **argv;
     char *path;
     bool isattyflag;
-    int num_name;
-    int flag_n;
     int colums;
     int size;
     int size_all;
     int width;
-    int argc;
-    int flag;
-    int size_list;
     int max_len_name;
     bool flag_minmaj;
     int max_len_uid;
@@ -88,27 +86,29 @@ typedef struct s_big_data {
     int max_len_blocks;
     bool acl;
     int total;
+    bool errors;
+    bool link;
 //____________________________________________________//
     char **dir_arr;
     char *str;
     char *dir_name;
 } t_data;
 
-
-void mx_sort_time(t_const *cnst, t_data *data);
-void mx_sort_size(t_data *data, t_const *cnst);
-void mx_sort_all(t_data *data, t_const *cnst);
-void mx_sort_revers(t_const *cnst, t_data *data);
-
+void mx_get_file_col(t_const *data_l, t_data *data);
+void mx_creat_list(t_sort *gen);
+void mx_sort_time(t_sort *general);
+void mx_sort_size(t_sort *gen);
+void mx_sort_all(t_data *data, t_sort *general);
+void mx_sort_revers(t_sort *general, t_data *data);
+void mx_many_arguments(t_data *data);
 void mx_control_char_name(char **str);
 void mx_check_control_char(char ***str);
-
 void mx_get_data(t_data *data, t_const *cnst);
 void mx_full_path(t_data *data, t_const *data_l);
 void mx_printstr_update(char *str1, char *str2, char *str3,
 char *str4, char *str5);
 void mx_print_spase(int count);
-void mx_sort_my_list(t_const *data_l, t_data *data);
+void mx_sort_my_list(t_sort *gen);
 void mx_print_l(t_const *cnst, t_data *data);
 void mx_get_flag_l(t_const *cnst, t_data *data);
 bool mx_isspecial(t_const *cnst);
@@ -127,6 +127,16 @@ void mx_get_ino(struct stat st, t_const *cnst);
 void mx_get_time(struct stat st, t_const *cnst, t_data *data);
 void mx_read_link(t_const *cnst);
 void mx_get_is(t_const *cnst, t_data *data);
+char *mx_itoa_sp(long long number);
+void mx_print_to_file(char **file, t_data *data);
+void mx_sort_file(char **str, int size);
+int mx_size_a(t_data *data);
+char **mx_get_result(char **file, t_data *data);
+void mx_head_size(t_const *cnst, t_data *data);
+int mx_columns();
+void mx_print_file(t_data *data);
+void mx_num_file(t_const *cnst, t_data *data);
+int mx_read_dir(char *dirname, t_data *data);
 // Мои
 void mx_flags_into_arr(char *s, t_data *app);
 void mx_read_flags(char **argv, int argc, t_data *app);
@@ -141,16 +151,5 @@ void mx_other_flags(char *cont, t_data *app);
 void  mx_printerr_char(char s);
 void mx_flags_into_arr(char *s, t_data *app);
 //
-char *mx_itoa_sp(long long number);
-void mx_print_to_file(char **file);
-void mx_sort_file(char **str, int size);
-int mx_size_a(t_data *data);
-char **mx_get_result(char **file, t_data *data);
-void mx_print_file_return_dir(t_data *data);
-void mx_head_size(t_const *cnst, t_data *data);
-int mx_columns();
-void mx_print_file(t_data *data);
-void mx_num_file(t_const *cnst, t_data *data);
-int mx_read_dir(char *dirname, t_data *data);
 
 #endif

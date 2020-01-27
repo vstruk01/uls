@@ -9,8 +9,11 @@ void mx_num_file(t_const *cnst, t_data *data) {
         cnst = cnst->next;
     }
     num = num + ( 8 - (num % 8));
-    data->colums = mx_columns();
     data->max_len_name = num;
-    data->width = data->colums / data->max_len_name;
-    data->size_all = mx_size_a(data);
+    data->strtotal = mx_itoa_sp(data->total);
+    if (isatty(1) != 0) {        
+        data->colums = mx_columns();
+        data->width = data->colums / data->max_len_name;
+        data->size_all = mx_size_a(data);
+    }
 }

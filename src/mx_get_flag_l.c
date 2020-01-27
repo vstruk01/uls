@@ -36,9 +36,9 @@ static void len(t_data *data, t_const *cnst) {
         data->max_len_link = mx_strlen(cnst->strlinkcount);
     if (mx_strlen(cnst->strbytes) > data->max_len_bytes)
         data->max_len_bytes = mx_strlen(cnst->strbytes);
-    if (mx_strlen(cnst->strmaj) > data->max_len_maj && cnst->strmaj[0] != '0')
+    if (mx_strlen(cnst->strmaj) > data->max_len_maj && cnst->strmaj[1] != 'x')
         data->max_len_maj = mx_strlen(cnst->strmaj);
-    if (mx_strlen(cnst->strmin) > data->max_len_min && cnst->strmin[0] != '0')
+    if (mx_strlen(cnst->strmin) > data->max_len_min && cnst->strmin[1] != 'x')
         data->max_len_min = mx_strlen(cnst->strmin);
     if (mx_strlen(cnst->strino) > data->max_len_ino)
         data->max_len_ino = mx_strlen(cnst->strino);

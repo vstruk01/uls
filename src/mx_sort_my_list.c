@@ -1,18 +1,15 @@
 #include "uls.h"
 
-void mx_sort_my_list(t_const *data_l, t_data *data) {
+void mx_sort_my_list(t_sort *gen) {
     
-    for (int i = 0; i < data->size - 1; i++) {
-        data_l = data->cnst;
-        for (int j = 0; j < data->size - i - 1; j++) {
-            if (mx_strcmp(data_l->name, data_l->next->name) > 0) {
-                char *tmp = data_l->name;
+    for (t_sort *i = gen; i; i = i->next) {
+        for (t_sort *j = gen; j->next; j = j->next) {
+            if (mx_strcmp(j->cnst->name, j->next->cnst->name) > 0) {
+                t_const *tmp = j->cnst;
 
-                data_l->name = data_l->next->name;
-                data_l->next->name = tmp;
+                j->cnst = j->next->cnst;
+                j->next->cnst = tmp;
             }
-            data_l = data_l->next;
         }
     }
-    data_l = data->cnst;
 }

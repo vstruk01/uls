@@ -1,29 +1,28 @@
 #include "uls.h"
 
 static void get_spases(char **str, int number);
-static void flag_i(t_const *cnst, t_data *data, int ino, int blocks);
-static void flag_s(t_const *cnst, t_data *data, int ino, int blocks);
-static void flag_is(t_const *cnst, t_data *data, int ino, int blocks);
+static void flag_i(t_const *cnst, t_data *data);
+static void flag_s(t_const *cnst, t_data *data);
+static void flag_is(t_const *cnst, t_data *data);
 
 void mx_get_is(t_const *cnst, t_data *data) {
-    int ino = 0;
-    int blocks = 0;
-
     if (data->flags[8] && data->flags[7])
-        flag_is(cnst, data, ino, blocks);
+        flag_is(cnst, data);
     else if (data->flags[8])
-        flag_s(cnst, data, ino, blocks);
+        flag_s(cnst, data);
     else if (data->flags[7])
-        flag_i(cnst, data, ino, blocks);
+        flag_i(cnst, data);
     else
         while (cnst != NULL) {
-            cnst->name_c = cnst->name;
+            cnst->name_c = mx_strdup(cnst->name);
             cnst = cnst->next;
         }
 }
 
-static void flag_i(t_const *cnst, t_data *data, int ino, int blocks) {
+static void flag_i(t_const *cnst, t_data *data) {
     char *str = NULL;
+    int ino = 1;
+    int blocks = 1;
 
     while (cnst != NULL) {
         ino = data->max_len_ino;
@@ -39,8 +38,10 @@ static void flag_i(t_const *cnst, t_data *data, int ino, int blocks) {
     }
 }
 
-static void flag_s(t_const *cnst, t_data *data, int ino, int blocks) {
+static void flag_s(t_const *cnst, t_data *data) {
     char *str = NULL;
+    int ino = 1;
+    int blocks = 1;
 
     while (cnst != NULL) {
         ino = data->max_len_ino;
@@ -56,8 +57,10 @@ static void flag_s(t_const *cnst, t_data *data, int ino, int blocks) {
     }
 }
 
-static void flag_is(t_const *cnst, t_data *data, int ino, int blocks) {
+static void flag_is(t_const *cnst, t_data *data) {
     char *str = NULL;
+    int ino = 1;
+    int blocks = 1;
 
     while (cnst != NULL) {
         ino = data->max_len_ino;
