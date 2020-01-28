@@ -50,6 +50,11 @@ get_is \
 creat_list \
 sort_time \
 get_file_col \
+many_argument \
+error_print \
+file_argument \
+dir_argument \
+last_char \
 
 INC = uls.h
 INCMX = libmx.h

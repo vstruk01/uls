@@ -4,9 +4,9 @@ static void pritn2(t_data *data, t_const *cnst);
 static void print(t_data *data, t_const *cnst);
 
 void mx_print_l(t_const *cnst, t_data *data) {
-    if (cnst->next != NULL)
+    if (cnst->next != NULL && data->flag_total == 1)
         mx_printstr_update("total ", data->strtotal, "\n", NULL, NULL);
-    for (int i = 0; i < data->size; i++ ) {
+    while (cnst != NULL) {
         pritn2(data, cnst);
         print(data, cnst);
         cnst = cnst->next;

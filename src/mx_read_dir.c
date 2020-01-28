@@ -43,6 +43,7 @@ static void flag_a_A(DIR *dir, t_data *data, t_sort *gen) {
     struct dirent *entry = NULL;
     int *flags = data->flags;
 
+    data->flag_total = 1;
     if (flags[0] == 1 || flags[9] == 1)
         while ((entry = readdir(dir)) != NULL)
             gen = get_name(entry, data, gen);
