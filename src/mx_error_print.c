@@ -6,5 +6,5 @@ void mx_error_print(char *str, t_data *data) {
     mx_print_error(": ");
     mx_print_error(strerror(errno));
     mx_print_error("\n");
-    data->errors = 1;
+    data->errors = 2;
 }

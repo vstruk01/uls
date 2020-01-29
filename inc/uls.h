@@ -81,8 +81,8 @@ typedef struct s_big_data {
     int size;
     int size_all;
     int width;
-    int max_len_name;
     bool flag_minmaj;
+    int max_len_name;
     int max_len_uid;
     int max_len_gid;
     int max_len_bytes;
@@ -93,14 +93,18 @@ typedef struct s_big_data {
     int max_len_blocks;
     bool acl;
     int total;
-    bool errors;
+    int errors;
     bool link;
+    struct s_big_data *next;
 //____________________________________________________//
     char **dir_arr;
     char *str;
     char *dir_name;
 } t_data;
 
+int mx_flag_link(t_data *data);
+void mx_one_argument(t_data *data);
+void mx_sort_dir_arr(t_data *data);
 bool mx_last_char(char *str);
 void mx_file_argument(t_const *cnst, t_data *data);
 void mx_dir_argument(t_dir *arg, t_data *data);
