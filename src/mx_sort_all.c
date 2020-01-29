@@ -1,7 +1,5 @@
 #include "uls.h"
 
-// static void free_gen(t_sort *gen);
-
 void mx_sort_all(t_data *data, t_sort *general) {
     if (data->flags[9]) {
         mx_creat_list(general);
@@ -21,15 +19,3 @@ void mx_sort_all(t_data *data, t_sort *general) {
     data->cnst = general->cnst;
     data->sort = general;
 }
-
-// static void free_gen(t_sort *gen) {
-//     t_sort *tmp = gen->next;
-
-//     while (tmp != NULL) {
-//         free(gen);
-//         gen = tmp;
-//         tmp = tmp->next;
-//     }
-//     free(gen);
-//     gen = NULL;
-// }

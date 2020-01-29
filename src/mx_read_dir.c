@@ -6,7 +6,6 @@ static void flag_a_A(DIR *dir, t_data *data, t_sort *gen);
 
 int mx_read_dir(char *dirname, t_data *data) {
     DIR *dir = opendir(dirname);
-    t_const *data_l = NULL;
     t_sort *general = malloc(sizeof(t_sort));
     t_sort *tmp = NULL;
 
@@ -14,22 +13,27 @@ int mx_read_dir(char *dirname, t_data *data) {
         print_error(data, dirname, general);
         return 0;
     }
+    general->next = NULL;
     flag_a_A(dir, data, general);
     tmp = general;
     general = general->next;
-    tmp->next = NULL;
     free(tmp);
+    if (general == NULL)
+        return 0;
     mx_sort_all(data, general);
-    data_l = data->cnst;
-    mx_get_is(data_l, data);
-    mx_num_file(data_l, data);
-    mx_get_file_col(data_l, data);
+    mx_get_is(data->cnst, data);
+    mx_num_file(data->cnst, data);
+    mx_get_file_col(data->cnst, data);
     return 1;
 }
 
 static void print_error(t_data *data, char *name, t_sort *gen) {
-    while (mx_get_char_index(name, '/') >= 0)
-        name++;
+    struct stat st;
+
+    stat(name, &st);
+    if (S_IFDIR == (S_IFMT & st.st_mode))
+        while (mx_get_char_index(name, '/') >= 0)
+            name++;
     mx_print_error("uls: ");
     mx_print_error(name);
     mx_print_error(": ");
@@ -43,6 +47,7 @@ static void flag_a_A(DIR *dir, t_data *data, t_sort *gen) {
     struct dirent *entry = NULL;
     int *flags = data->flags;
 
+    data->flag_total = 1;
     if (flags[0] == 1 || flags[9] == 1)
         while ((entry = readdir(dir)) != NULL)
             gen = get_name(entry, data, gen);
