@@ -2,9 +2,7 @@
 
 int main(int argc, char **argv) {
     t_data *data = malloc(sizeof(t_data));
-    
-    
-
+ 
     mx_read_flags(argv, argc, data);
     if (!data->dir_arr[0])
         mx_one_argument(data);
