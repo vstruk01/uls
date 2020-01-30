@@ -7,6 +7,8 @@ static int is_flag_l(char cont, t_data *app);
 void mx_basic_flags(char *cont, t_data *app, int len) {
     int i = 0;
 
+    if (mx_get_char_index(cont, 'R') >= 0)
+        app->flags[14] = 1;
     if (mx_get_char_index(cont, 'o') >= 0)
         app->flags[5] = 1;
     if (mx_get_char_index(cont, 'g') >= 0)
@@ -40,9 +42,6 @@ static int is_flag_l(char cont, t_data *app) {
 }
 
 static void flags_include_basic(char *cont, t_data *app, int len) {
-    
-        if (mx_memchr(cont, 'h', len))
-            app->flags[14] = 1;
         if (mx_memchr(cont, 'T', len))
             app->flags[6] = 1;
         if (mx_memchr(cont, 'u', len))
