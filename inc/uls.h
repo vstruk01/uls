@@ -61,9 +61,15 @@ typedef struct s_sort_list {
     struct s_sort_list *next;
 } t_sort;
 
+typedef struct s_dir {
+    char *name;
+    struct s_dir *next;
+} t_dir;
+
 typedef struct s_big_data {
     t_const *cnst;
     t_sort *sort;
+    t_dir *dir;
     char *strtotal;
     char **name_all;
     char **file;
@@ -71,11 +77,12 @@ typedef struct s_big_data {
     char *path;
     bool isattyflag;
     int colums;
+    int flag_total;
     int size;
     int size_all;
     int width;
-    int max_len_name;
     bool flag_minmaj;
+    int max_len_name;
     int max_len_uid;
     int max_len_gid;
     int max_len_bytes;
@@ -86,21 +93,29 @@ typedef struct s_big_data {
     int max_len_blocks;
     bool acl;
     int total;
-    bool errors;
+    int errors;
     bool link;
+    struct s_big_data *next;
 //____________________________________________________//
     char **dir_arr;
     char *str;
     char *dir_name;
 } t_data;
 
+int mx_flag_link(t_data *data);
+void mx_one_argument(t_data *data);
+void mx_sort_dir_arr(t_data *data);
+bool mx_last_char(char *str);
+void mx_file_argument(t_const *cnst, t_data *data);
+void mx_dir_argument(t_dir *arg, t_data *data);
+void mx_error_print(char *str, t_data *data);
 void mx_get_file_col(t_const *data_l, t_data *data);
 void mx_creat_list(t_sort *gen);
 void mx_sort_time(t_sort *general);
 void mx_sort_size(t_sort *gen);
 void mx_sort_all(t_data *data, t_sort *general);
 void mx_sort_revers(t_sort *general, t_data *data);
-void mx_many_arguments(t_data *data);
+void mx_many_argument(t_data *data);
 void mx_control_char_name(char **str);
 void mx_check_control_char(char ***str);
 void mx_get_data(t_data *data, t_const *cnst);
