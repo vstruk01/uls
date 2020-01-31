@@ -6,7 +6,6 @@ void mx_full_path(t_data *data, t_const *data_l) {
             char *tmp = mx_strjoin(data->path, "/");
 
             data_l->ful_n = mx_strjoin(tmp, data_l->name);
-            printf("%s\n", data_l->ful_n);
             free(tmp);
         }
         else
