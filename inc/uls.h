@@ -63,6 +63,7 @@ typedef struct s_sort_list {
 
 typedef struct s_dir {
     char *name;
+    t_const *cnst;
     struct s_dir *next;
 } t_dir;
 
@@ -102,6 +103,8 @@ typedef struct s_big_data {
     char *dir_name;
 } t_data;
 
+void mx_sort_dir(t_dir *dir, t_data *data);
+void mx_sort_dir_alp(t_dir *dir);
 int mx_flag_link(t_data *data);
 void mx_one_argument(t_data *data);
 void mx_sort_dir_arr(t_data *data);
