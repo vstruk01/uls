@@ -29,8 +29,8 @@ void mx_dir_argument(t_dir *dir, t_data *data) {
 static void read_dir(t_data *data, t_dir *dir) {
     if (mx_read_dir(dir->name, data)) {
         if (data->flags[4] || data->flags[5] || data->flags[3]) {
-            mx_print_l(data->cnst, data);
             data->flag_total = 1;
+            mx_print_l(data->cnst, data);
         }
         else {
             if (data->flags[8]) {
