@@ -11,7 +11,7 @@ void mx_control_char_name(char **str) {
             || (*str)[i] == '\v'
             || (*str)[i] == '\033')
         {
-                (*str)[i] = '?';
+            (*str)[i] = '?';
         }
     }
 }
