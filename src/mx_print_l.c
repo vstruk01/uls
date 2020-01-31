@@ -5,7 +5,7 @@ static void print(t_data *data, t_const *cnst);
 static void permission(t_const *cnst, t_data *data);
 
 void mx_print_l(t_const *cnst, t_data *data) {
-    if ( data->flag_total)
+    if (data->flag_total)
         mx_printstr_update("total ", data->strtotal, "\n", NULL, NULL);
     while (cnst != NULL) {
         mx_control_char_name(&cnst->name);
