@@ -18,7 +18,7 @@ void mx_file_argument(t_const *cnst, t_data *data) {
             gen->next = NULL;
         }
         else
-            new_nod(gen, cnst, data);
+            gen = new_nod(gen, cnst, data);
         cnst = cnst->next;
     }
     gen = save;
