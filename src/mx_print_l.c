@@ -5,8 +5,7 @@ static void print(t_data *data, t_const *cnst);
 static void permission(t_const *cnst, t_data *data);
 
 void mx_print_l(t_const *cnst, t_data *data) {
-    // mx_printstr("\x1b[32m");
-    if (cnst->next != NULL && data->flag_total == 1)
+    if ( data->flag_total)
         mx_printstr_update("total ", data->strtotal, "\n", NULL, NULL);
     while (cnst != NULL) {
         mx_control_char_name(&cnst->name);
@@ -28,12 +27,6 @@ static void pritn2(t_data *data, t_const *cnst) {
     }
     mx_printstr(cnst->strrwx);
     cnst->stracl != NULL ? mx_printstr(cnst->stracl) : mx_printstr(" ");
-    // mx_printint(data->max_len_link);
-    // mx_printstr("-");
-    // mx_printint(mx_strlen(cnst->strlinkcount));
-    // mx_printstr("--"); 
-    // mx_printint(data->max_len_link - mx_strlen(cnst->strlinkcount) + 1);
-    // mx_printstr("\n");
     mx_print_spase(data->max_len_link - mx_strlen(cnst->strlinkcount) + 1);
     mx_printstr_update(cnst->strlinkcount, " ", NULL, NULL, NULL);
     if (!data->flags[3]) {
