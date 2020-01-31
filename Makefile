@@ -10,6 +10,8 @@ INC = uls.h
 SRC = main.c \
 mx_read_dir.c \
 mx_num_file.c \
+mx_sort_dir_alp.c \
+mx_sort_dir.c \
 mx_check_control_char.c \
 mx_columns.c \
 mx_print_file.c \

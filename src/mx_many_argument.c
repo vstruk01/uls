@@ -22,6 +22,7 @@ void mx_many_argument(t_data *data) {
     data->cnst = save;
     if (save->name != NULL)
         mx_file_argument(save, data);
+    mx_sort_dir(save_dir, data);
     if (save_dir->name != NULL)
         mx_dir_argument(save_dir, data);
 }
