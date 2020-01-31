@@ -29,8 +29,9 @@ void mx_file_argument(t_const *cnst, t_data *data) {
     mx_get_is(cnst, data);
     mx_num_file(cnst, data);
     mx_get_file_col(cnst, data);
+    data->flag_total = 0;
     if (data->flags[4] || data->flags[5] || data->flags[3])
         mx_print_l(cnst, data);
-    else 
+     else
         mx_print_file(data);
 }
