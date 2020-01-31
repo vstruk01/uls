@@ -34,7 +34,7 @@ static void print_and_sort(t_data *data, t_const *cnst, t_sort *gen) {
     data->flag_total = 0;
     if (data->flags[4] || data->flags[5] || data->flags[3])
         mx_print_l(cnst, data);
-     else
+    else
         mx_print_file(data);
 }
 
