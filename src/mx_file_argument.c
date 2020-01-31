@@ -31,15 +31,11 @@ static void print_and_sort(t_data *data, t_const *cnst, t_sort *gen) {
     mx_get_is(cnst, data);
     mx_num_file(cnst, data);
     mx_get_file_col(cnst, data);
+    data->flag_total = 0;
     if (data->flags[4] || data->flags[5] || data->flags[3])
         mx_print_l(cnst, data);
-    else {
-        if (data->flags[8] && data->size > 1) {
-            mx_printstr_update("total ",
-            data->strtotal, "\n", NULL, NULL);
-        }
+    else
         mx_print_file(data);
-    }
 }
 
 static t_sort *new_nod(t_sort *gen, t_const *cnst, t_data *data) {
