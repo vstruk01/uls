@@ -1,6 +1,6 @@
 #include "uls.h" 
 
-static void print_and_sort(t_data *data, t_const *cnst, t_sort *gen);
+static void print_and_sort(t_data *data, t_const *cnst);
 static t_sort *new_nod(t_sort *gen, t_const *cnst, t_data *data);
 
 void mx_file_argument(t_const *cnst, t_data *data) {
@@ -22,11 +22,11 @@ void mx_file_argument(t_const *cnst, t_data *data) {
         cnst = cnst->next;
     }
     gen = save;
-    print_and_sort(data, cnst, gen);
+    mx_sort_all(data, gen);
+    print_and_sort(data, cnst);
 }
 
-static void print_and_sort(t_data *data, t_const *cnst, t_sort *gen) {
-    mx_sort_all(data, gen);
+static void print_and_sort(t_data *data, t_const *cnst) {
     cnst = data->cnst;
     mx_get_is(cnst, data);
     mx_num_file(cnst, data);
