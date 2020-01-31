@@ -22,7 +22,6 @@ void mx_many_argument(t_data *data) {
     data->cnst = save;
     if (save->name != NULL)
         mx_file_argument(save, data);
-    
     if (save_dir->name != NULL)
         mx_dir_argument(save_dir, data);
 }
