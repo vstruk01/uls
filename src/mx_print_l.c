@@ -43,7 +43,8 @@ static void pritn2(t_data *data, t_const *cnst) {
 
 static void print(t_data *data, t_const *cnst) {
     if (data->flag_minmaj && !mx_isspecial(cnst))
-        mx_print_spase(data->max_len_min + data->max_len_maj + 2);
+        mx_print_spase(data->max_len_min + data->max_len_maj 
+                        + 3 - data->max_len_bytes);
     if (mx_isspecial(cnst)) {
         mx_print_spase(data->max_len_maj - mx_strlen(cnst->strmaj) + 1);
         mx_printstr_update(cnst->strmaj, ",", " ", NULL, NULL);
