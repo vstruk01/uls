@@ -103,6 +103,7 @@ typedef struct s_big_data {
     char *dir_name;
 } t_data;
 
+void mx_print_m(t_data *data);
 void mx_sort_dir(t_dir *dir, t_data *data);
 void mx_sort_dir_alp(t_dir *dir);
 int mx_flag_link(t_data *data);
