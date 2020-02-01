@@ -7,7 +7,7 @@ void mx_sort_all(t_data *data, t_sort *general) {
         data->sort = general;
         return;
     }
-    if (data->flags[10])
+    if(data->flags[10])
         mx_sort_size(general);
     else if (data->flags[11])
         mx_sort_time(general);
