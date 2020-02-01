@@ -8,6 +8,7 @@ LBMXD = libmx
 LMBX = libmx.a
 INC = uls.h
 SRC = main.c \
+mx_print_m.c \
 mx_read_dir.c \
 mx_num_file.c \
 mx_sort_dir_alp.c \

@@ -14,7 +14,7 @@ void mx_flags_into_arr(char *s, t_data *app) {
 }
 
 static void check_arr_flags(t_data *app, char *s) {
-    app->str = "ASTRagfilorstu1";
+    app->str = "ASTmagfilorstu1";
     int i;
 
     for (i = 0; i < mx_strlen(s); i++)

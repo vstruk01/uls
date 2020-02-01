@@ -32,6 +32,8 @@ static void read_dir(t_data *data, t_dir *dir) {
             data->flag_total = 1;
             mx_print_l(data->cnst, data);
         }
+        else if (data->flags[14])
+            mx_print_m(data);
         else {
             if (data->flags[8]) {
                 mx_printstr_update("total ",
