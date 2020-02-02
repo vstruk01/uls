@@ -13,7 +13,7 @@ void mx_print_file(t_data *data) {
                 mx_printstr("\n");
             if (file[i] != NULL) {
                 mx_printstr(file[i]);
-                if ((i + 1) % data->width != 0 && file[i + 1] != NULL)    
+                if ((i + 1) % data->width != 0 && file[i + 1] != NULL)
                     for (int j = mx_strlen(file[i]); j < max_len; j++)
                         mx_printstr(" ");
             }

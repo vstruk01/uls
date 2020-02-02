@@ -10,4 +10,3 @@ void mx_printerr(t_errors errors, char s) {
     mx_print_error("\n");
     exit(1);
 }
-

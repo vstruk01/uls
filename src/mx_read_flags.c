@@ -14,4 +14,3 @@ void mx_read_flags(char **argv, int argc, t_data *app) {
     app->max_len_blocks = 0;
     mx_count_flags_in_str(argv, app, argc);
 }
-

@@ -43,11 +43,11 @@ static int print(t_data *data, t_const *cnst, int count) {
         count += mx_strlen(cnst->name) + 2 + count_data(data);
     if (data->flags[7]) {
         mx_print_spase(data->max_len_ino - mx_strlen(cnst->strino));
-        mx_printstr_update(cnst->strino, " ", NULL, NULL, NULL);
+        mx_printstr_update(cnst->strino, " ", NULL, NULL);
     }
     if (data->flags[8]) {
         mx_print_spase(data->max_len_blocks - mx_strlen(cnst->strblocks));
-        mx_printstr_update(cnst->strblocks, " ", NULL, NULL, NULL);
+        mx_printstr_update(cnst->strblocks, " ", NULL, NULL);
     }
     return count;
 }

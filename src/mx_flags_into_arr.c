@@ -14,9 +14,9 @@ void mx_flags_into_arr(char *s, t_data *app) {
 }
 
 static void check_arr_flags(t_data *app, char *s) {
-    app->str = "ASTmagfilorstu1";
     int i;
 
+    app->str = "ASTmagfilorstu1";
     for (i = 0; i < mx_strlen(s); i++)
         if (mx_get_char_index(app->str, s[i]) < 0)
             mx_printerr(INVALID_FLAGS, s[i]);

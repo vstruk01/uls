@@ -9,7 +9,13 @@ void mx_sort_size(t_sort *gen) {
                 j->cnst = j->next->cnst;
                 j->next->cnst = cnst;
             }
+            else if (j->cnst->size_bytes == j->next->cnst->size_bytes 
+                     && mx_strcmp(j->cnst->name, j->next->cnst->name) > 0) {
+                t_const *cnst = j->cnst;
+
+                j->cnst = j->next->cnst;
+                j->next->cnst = cnst;
+            }
         }
     }
 }
-
