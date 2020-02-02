@@ -15,7 +15,7 @@ void mx_dir_argument(t_dir *dir, t_data *data) {
     while (dir != NULL) {
         data->path = dir->name;
         if (flag)
-            mx_printstr_update(dir->name, ":", "\n", NULL, NULL);
+            mx_printstr_update(dir->name, ":", "\n", NULL);
         read_dir(data, dir);
         flag = 1;
         if (dir->next != NULL) {
@@ -35,10 +35,8 @@ static void read_dir(t_data *data, t_dir *dir) {
         else if (data->flags[14])
             mx_print_m(data);
         else {
-            if (data->flags[8]) {
-                mx_printstr_update("total ",
-                data->strtotal, "\n", NULL, NULL);
-            }
+            if (data->flags[8])
+                mx_printstr_update("total ", data->strtotal, "\n", NULL);
             mx_print_file(data);
         }
     }

@@ -124,8 +124,7 @@ void mx_control_char_name(char **str);
 void mx_check_control_char(char ***str);
 void mx_get_data(t_data *data, t_const *cnst);
 void mx_full_path(t_data *data, t_const *data_l);
-void mx_printstr_update(char *str1, char *str2, char *str3,
-char *str4, char *str5);
+void mx_printstr_update(char *str1, char *str2, char *str3, char *str4);
 void mx_print_spase(int count);
 void mx_sort_my_list(t_sort *gen);
 void mx_print_l(t_const *cnst, t_data *data);

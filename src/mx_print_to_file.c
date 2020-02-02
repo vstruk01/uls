@@ -6,4 +6,3 @@ void mx_print_to_file(char **file, t_data *data) {
         mx_printstr("\n");
     }
 }
-

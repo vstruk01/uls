@@ -5,7 +5,6 @@ static void sort_size_dir(t_dir *dir);
 static void sort_time_dir(t_dir *dir);
 static void sort_revers_dir(t_dir *dir, t_data *data);
 
-
 void mx_sort_dir(t_dir *dir, t_data *data) {
     for (t_dir *i = dir; i != NULL; i = i->next) {
         i->cnst = malloc(sizeof(t_const));
@@ -31,13 +30,11 @@ static void sort_size_dir(t_dir *dir) {
     for (t_dir *i = dir; i; i = i->next) {
         for (t_dir *j = dir; j->next; j = j->next) {
             if (j->cnst->size_bytes < j->next->cnst->size_bytes) {
-                t_const *cnst = j->cnst;
-                char *name = j->name;
-
-                j->name = j->next->name;
-                j->next->name = name;
-                j->cnst = j->next->cnst;
-                j->next->cnst = cnst;
+                swap(j);
+            }
+            else if (j->cnst->size_bytes < j->next->cnst->size_bytes 
+                     && mx_strcmp(j->cnst->name, j->next->cnst->name) > 0) {
+                swap(j);
             }
         }
     }
@@ -88,4 +85,3 @@ static void sort_revers_dir(t_dir *dir, t_data *data) {
     }
     free(tmp);
 }
-

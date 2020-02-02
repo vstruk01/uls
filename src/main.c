@@ -11,6 +11,4 @@ int main(int argc, char **argv) {
     if (data->errors)
         return 1;
     return 0;
-    // find / | xargs ./uls
 }
-
