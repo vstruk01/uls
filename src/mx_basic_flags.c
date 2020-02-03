@@ -6,13 +6,8 @@ static int is_flag_l(char *cont, t_data *app, int i);
 static int check_m(char s, t_data *app);
 
 void mx_basic_flags(char *cont, t_data *app, int len) {
-    int i = 0;
-
-    if (mx_get_char_index(cont, 'g') >= 0)
-        app->flags[3] = 1;
-    if (mx_get_char_index(cont, 'o') >= 0)
-        app->flags[5] = 1;
-    for (i = mx_strlen(cont) - 1; i >= 0; i--) {
+    mx_flags_g_o(app, cont);
+    for (int i = mx_strlen(cont) - 1; i >= 0; i--) {
         if (is_flag_1(cont[i], app) == 1)
             break;
         else if (is_flag_l(cont, app, i) == 1)
@@ -66,3 +61,4 @@ static void flags_include_basic(char *cont, t_data *app, int len) {
         if (mx_memchr(cont, 'u', len))
             app->flags[13] = 1;
 }
+
