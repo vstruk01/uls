@@ -178,7 +178,7 @@ int mx_dir_arr(char **argv, int argc, t_data *app);
 void mx_printerr(t_errors errors, char s);
 void mx_print_error(const char *s);
 void mx_check_flags(char *s, t_data *app);
-void mx_basic_flags(char *cont, t_data *app, int len);
+void mx_basic_flags(char *cont, t_data *app);
 void mx_flags_for_sort(char *cont, t_data *app);
 void mx_other_flags(char *cont, t_data *app);
 void  mx_printerr_char(char s);

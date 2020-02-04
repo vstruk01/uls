@@ -35,12 +35,11 @@ static void print(t_data *data, t_const *cnst) {
         mx_printstr(cnst->strbytes);
     }
     mx_printstr_update(" ", cnst->strtime, " ", NULL);
-    if (data->flags[16] && cnst->color != NULL)
+    if (data->flags[16] && cnst->color != NULL && isatty(1) != 0)
         mx_printstr(cnst->color);
-    mx_printstr_update(cnst->name, NOCOLOR, NULL, NULL);
-    if (mx_islink(cnst) && cnst->strrwx[1] != '-')
-        mx_printstr_update(" -> ", cnst->strlink, NULL, NULL);
-    mx_printstr("\n");
+    mx_printstr_update(cnst->name, NULL, NULL, NULL);
+    if (data->flags[16] && isatty(1) != 0)
+        mx_printstr(NOCOLOR);
 }
 
 static void permission(t_const *cnst, t_data *data) {
@@ -78,6 +77,9 @@ void mx_print_l(t_const *cnst, t_data *data) {
         }
         pritn2(data, cnst);
         print(data, cnst);
+        if (mx_islink(cnst) && cnst->strrwx[1] != '-')
+            mx_printstr_update(" -> ", cnst->strlink, NULL, NULL);
+        mx_printstr("\n");
         cnst = cnst->next;
     }
 }

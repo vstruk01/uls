@@ -45,8 +45,8 @@ static void flag_a_A(DIR *dir, t_data *data, t_sort *gen) {
             gen = get_name(entry, data, gen);
     else if (flags[1] == 1) {
         while ((entry = readdir(dir)) != NULL)
-            if (strcmp(entry->d_name, ".") != 0 
-                && strcmp(entry->d_name, "..") != 0) {
+            if (mx_strcmp(entry->d_name, ".") != 0 
+                && mx_strcmp(entry->d_name, "..") != 0) {
                 gen = get_name(entry, data, gen);
             }
     }

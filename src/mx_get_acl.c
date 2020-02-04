@@ -17,4 +17,3 @@ void mx_get_acl(t_const *cnst) {
         acl_free(acl);
     }
 }
-

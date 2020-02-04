@@ -9,6 +9,7 @@ static void get_strstr(t_const *data_l, t_data *data) {
         result[i] = data_l->name_c;
         data_l = data_l->next;
     }
+    data->isattyflag = 0;
     data->name_all = mx_get_result(result, data);
     free(result);
 }
@@ -27,7 +28,8 @@ static void get_str_to_file(t_const *data_l, t_data *data) {
 }
 
 void mx_get_file_col(t_const *data_l, t_data *data) {
-    if (isatty(1) == 0 || data->flags[2] || data->flags[14]) {
+    if ((isatty(1) == 0 || data->flags[2] || data->flags[14]) 
+        && !data->flags[17]) {
         get_str_to_file(data_l, data);
     }
     else {
