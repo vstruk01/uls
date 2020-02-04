@@ -18,7 +18,7 @@ void mx_sort_time(t_sort *gen) {
             }
             else if (j->cnst->time == j->next->cnst->time
                      && j->cnst->nsec == j->next->cnst->nsec
-                     && (strcmp(j->cnst->name, j->next->cnst->name) > 0)) {
+                     && (mx_strcmp(j->cnst->name, j->next->cnst->name) > 0)) {
                  swap(j);
             }
         }
