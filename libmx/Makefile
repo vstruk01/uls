@@ -76,11 +76,10 @@ install:
 	
 uninstall:
 	@rm -rf $(NAME)
-	@rm -rf $(INC)
 
 clean:
-	@rm -rf $(INC)
 	@rm -rf $(SRCS)
+	@rm -rf $(INC)
 	@rm -rf ./obj
 
 reinstall: uninstall all

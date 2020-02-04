@@ -1,22 +1,8 @@
 #include "uls.h"
 
-static void get_spases(char **str, int number);
-static void flag_i(t_const *cnst, t_data *data);
-static void flag_s(t_const *cnst, t_data *data);
-static void flag_is(t_const *cnst, t_data *data);
-
-void mx_get_is(t_const *cnst, t_data *data) {
-    if (data->flags[8] && data->flags[7])
-        flag_is(cnst, data);
-    else if (data->flags[8])
-        flag_s(cnst, data);
-    else if (data->flags[7])
-        flag_i(cnst, data);
-    else
-        while (cnst != NULL) {
-            cnst->name_c = mx_strdup(cnst->name);
-            cnst = cnst->next;
-        }
+static void get_spases(char **str, int number) {
+    for (int i = 0; i < number; i++)
+        mx_strcat(*str, " ");    
 }
 
 static void flag_i(t_const *cnst, t_data *data) {
@@ -78,7 +64,16 @@ static void flag_is(t_const *cnst, t_data *data) {
     }
 }
 
-static void get_spases(char **str, int number) {
-    for (int i = 0; i < number; i++)
-        mx_strcat(*str, " ");    
+void mx_get_is(t_const *cnst, t_data *data) {
+    if (data->flags[8] && data->flags[7])
+        flag_is(cnst, data);
+    else if (data->flags[8])
+        flag_s(cnst, data);
+    else if (data->flags[7])
+        flag_i(cnst, data);
+    else
+        while (cnst != NULL) {
+            cnst->name_c = mx_strdup(cnst->name);
+            cnst = cnst->next;
+        }
 }

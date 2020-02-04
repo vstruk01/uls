@@ -20,20 +20,21 @@ static void clear(char **res, int count, char *replace, char *tmp) {
 }
 
 static char *ret(char *str, char *replace, char *sub, int num) {
-    int sublen = mx_strlen(sub);
+    int sublen[2];
     int count = mx_strlen(replace) * num;
-    char *res = mx_strnew((mx_strlen(str) - count) + (sublen * num));
+    char *res = mx_strnew((mx_strlen(str) - count) + (mx_strlen(sub) * num));
     char *tmp = str;
     char *rest = res;
 
     count = 0;
-    for(int i = 0; i < num; i++) {
+    sublen[1] = mx_strlen(sub);
+    for (sublen[0] = 0; sublen[0] < num; sublen[0]++) {
         str += mx_get_substr_index(str, sub);
-        tmp += (mx_get_substr_index(str, sub) + sublen);
+        tmp += (mx_get_substr_index(str, sub) + sublen[1]);
         count += mx_get_substr_index(str, sub);
         clear(&res, count, replace, tmp);
         count += mx_strlen(replace);
-        str += sublen;
+        str += sublen[1];
     }
     free(rest);
     return res;

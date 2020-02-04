@@ -4,8 +4,8 @@ int mx_binary_search(char **arr, int size, const char *s, int *count) {
     int max = size - 1;
     int low = 0;
     int mid ;
-    *count = 0;
 
+    *count = 0;
     while(low <= max) { 
         mid = low + (max - low) / 2;
         (*count)++;

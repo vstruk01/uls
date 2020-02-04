@@ -1,32 +1,5 @@
 #include "uls.h"
 
-static void print_error(t_data *data, char *name, t_sort *gen);
-static t_sort *get_name(struct dirent *entry,t_data *data, t_sort *gen);
-static void flag_a_A(DIR *dir, t_data *data, t_sort *gen);
-
-int mx_read_dir(char *dirname, t_data *data) {
-    DIR *dir = opendir(dirname);
-    t_sort *general = malloc(sizeof(t_sort));
-    t_sort *tmp = NULL;
-
-    if (!dir) {
-        print_error(data, dirname, general);
-        return 0;
-    }
-    general->next = NULL;
-    flag_a_A(dir, data, general);
-    tmp = general;
-    general = general->next;
-    free(tmp);
-    if (general == NULL)
-        return 0;
-    mx_sort_all(data, general);
-    mx_get_is(data->cnst, data);
-    mx_num_file(data->cnst, data);
-    mx_get_file_col(data->cnst, data);
-    return 1;
-}
-
 static void print_error(t_data *data, char *name, t_sort *gen) {
     struct stat st;
 
@@ -41,6 +14,25 @@ static void print_error(t_data *data, char *name, t_sort *gen) {
     mx_print_error("\n");
     data->errors = 1;
     free(gen);
+}
+
+static t_sort *get_name(struct dirent *entry, t_data *data, t_sort *gen) {
+    gen->next = malloc(sizeof(t_sort));
+    gen->next->cnst = malloc(sizeof(t_const));
+    gen->next->cnst->name = mx_strdup(entry->d_name);
+    if (data->path !=  NULL) {
+        char *tmp = mx_strjoin(data->path, "/");
+
+        gen->next->cnst->ful_n = mx_strjoin(tmp, gen->next->cnst->name);
+        free(tmp);
+    }
+    else
+        gen->next->cnst->ful_n = NULL;
+    mx_get_flag_l(gen->next->cnst, data);
+    data->size += 1;
+    gen = gen->next;
+    gen->next = NULL;
+    return gen;
 }
 
 static void flag_a_A(DIR *dir, t_data *data, t_sort *gen) {
@@ -65,21 +57,25 @@ static void flag_a_A(DIR *dir, t_data *data, t_sort *gen) {
     closedir(dir);
 }
 
-static t_sort *get_name(struct dirent *entry, t_data *data, t_sort *gen) {
-    gen->next = malloc(sizeof(t_sort));
-    gen->next->cnst = malloc(sizeof(t_const));
-    gen->next->cnst->name = mx_strdup(entry->d_name);
-    if (data->path !=  NULL) {
-        char *tmp = mx_strjoin(data->path, "/");
+int mx_read_dir(char *dirname, t_data *data) {
+    DIR *dir = opendir(dirname);
+    t_sort *general = malloc(sizeof(t_sort));
+    t_sort *tmp = NULL;
 
-        gen->next->cnst->ful_n = mx_strjoin(tmp, gen->next->cnst->name);
-        free(tmp);
+    if (!dir) {
+        print_error(data, dirname, general);
+        return 0;
     }
-    else
-        gen->next->cnst->ful_n = NULL;
-    mx_get_flag_l(gen->next->cnst, data);
-    data->size += 1;
-    gen = gen->next;
-    gen->next = NULL;
-    return gen;
+    general->next = NULL;
+    flag_a_A(dir, data, general);
+    tmp = general;
+    general = general->next;
+    free(tmp);
+    if (general == NULL)
+        return 0;
+    mx_sort_all(data, general);
+    mx_get_is(data->cnst, data);
+    mx_num_file(data->cnst, data);
+    mx_get_file_col(data->cnst, data);
+    return 1;
 }

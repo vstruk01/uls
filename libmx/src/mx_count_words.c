@@ -1,15 +1,11 @@
-#include <unistd.h>
 #include "libmx.h"
 
-int mx_strlen(const char *s);
-
 int mx_count_words(const char *str, char c) {
-    if(str == NULL || !*str)
-        return -1;
-
     const char *tmp = str;
     int count = 0;
 
+    if(str == NULL || !*str)
+        return -1;
     while (*tmp != '\0') {
         for (int j = 0; tmp[j] == c && tmp[j] != '\0'; j++)
             str++;
