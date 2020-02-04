@@ -172,6 +172,7 @@ void mx_num_file(t_const *cnst, t_data *data);
 int mx_read_dir(char *dirname, t_data *data);
 // Мои
 void mx_flags_into_arr(char *s, t_data *app);
+void mx_flags_g_o(t_data *app, char *cont);
 void mx_read_flags(char **argv, int argc, t_data *app);
 void mx_count_flags_in_str(char **argv, t_data *app, int argc);
 int mx_dir_arr(char **argv, int argc, t_data *app);

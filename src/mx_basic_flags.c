@@ -53,3 +53,4 @@ void mx_basic_flags(char *cont, t_data *app, int len) {
     if (app->flags[3] == 1 || app->flags[4] == 1 || app->flags[5] == 1)
         flags_include_basic(cont, app, len);
 }
+
