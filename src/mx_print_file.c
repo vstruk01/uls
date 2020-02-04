@@ -12,8 +12,12 @@ static void printcolor(char *str, t_const *cnst) {
 }
 
 static void printspase(int i) {
-    for (int j = 0; j < i; j++)
-        mx_printchar(' ');
+    int j = i / 8;
+
+    if (i % 8 > 0)
+        j++;
+    for (int n = 0; n < j; n++)
+        mx_printchar('\t');
 }
 
 
