@@ -11,11 +11,17 @@ static void printcolor(char *str, t_const *cnst) {
     }
 }
 
-static void printspase(int i) {
+static void printspase(int i, t_data *data) {
     int j = i / 8;
 
     if (i % 8 > 0)
         j++;
+    if (data->flags[16]) {
+        for (int n = 0; n < i; n++) {
+            mx_printchar(' ');
+        }
+        return;
+    }
     for (int n = 0; n < j; n++)
         mx_printchar('\t');
 }
@@ -36,7 +42,7 @@ void mx_print_file(t_data *data) {
                     printcolor(file[i], data->cnst);
                 mx_printstr_update(file[i], NOCOLOR, NULL, NULL);
                 if ((i + 1) % data->width != 0 && file[i + 1] != NULL)
-                    printspase(data->max_len_name - mx_strlen(file[i]));
+                    printspase(data->max_len_name - mx_strlen(file[i]), data);
             }
         }
         if (data->size != 0)
