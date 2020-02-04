@@ -34,7 +34,9 @@ static void print(t_data *data, t_const *cnst) {
         mx_print_spase(data->max_len_bytes - mx_strlen(cnst->strbytes));
         mx_printstr(cnst->strbytes);
     }
-    mx_printstr_update(" ", cnst->strtime, " ", cnst->color);
+    mx_printstr_update(" ", cnst->strtime, " ", NULL);
+    if (data->flags[16] && cnst->color != NULL)
+        mx_printstr(cnst->color);
     mx_printstr_update(cnst->name, NOCOLOR, NULL, NULL);
     if (mx_islink(cnst) && cnst->strrwx[1] != '-')
         mx_printstr_update(" -> ", cnst->strlink, NULL, NULL);

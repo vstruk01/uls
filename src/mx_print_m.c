@@ -23,7 +23,9 @@ static int print(t_data *data, t_const *cnst, int count) {
         mx_print_spase(data->max_len_blocks - mx_strlen(cnst->strblocks));
         mx_printstr_update(cnst->strblocks, " ", NULL, NULL);
     }
-    mx_printstr_update(cnst->color, cnst->name, NOCOLOR, NULL);
+    if (data->flags[16] && cnst->color != NULL)
+        mx_printstr(cnst->color);
+    mx_printstr_update(NULL, cnst->name, NOCOLOR, NULL);
     if (cnst->next != NULL)
         mx_printstr(", ");
     return count;

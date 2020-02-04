@@ -72,7 +72,6 @@ mx_last_char.c \
 mx_sort_dir_arr.c \
 mx_one_argument.c \
 mx_flag_link.c \
-mx_flags_g_o.c \
 
 INCLUDE = -I $(LBMXD) \
 	-I $(INCD) \
