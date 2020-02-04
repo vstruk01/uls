@@ -24,7 +24,7 @@ static int count(char *str, int len, int last) {
 static char *entry(int last, int len, char *str) {
     char *new = mx_strnew(last - len); 
 
-    for(int j = 0; j < last - len; j++){
+    for (int j = 0; j < last - len; j++){
         new[j] = *str;
         str++;
     }
@@ -39,8 +39,8 @@ char *mx_strtrim(const char *str) {
     if (str == NULL || !*str)
         return NULL;
     last = mx_strlen(str);
-    for( i = 0; str[i] != '\0' && chek(str[i]); i++);
-    if(i == mx_strlen(str))
+    for ( i = 0; str[i] != '\0' && chek(str[i]); i++);
+    if (i == mx_strlen(str))
         return mx_strnew(0);
     len = count((char *)str, len, last);
     return entry(last, len, (char *)str);

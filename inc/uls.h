@@ -18,6 +18,19 @@
 #include <pwd.h>
 #include <sys/errno.h>
 
+
+#define NOCOLOR "\033[0m"           // nocolor
+#define RED "\033[0;31m"            //  --x--x--x 3
+#define SOCKET "\033[0;32m"         //  SOCKET
+#define PIPE "\033[0;33m"           //  PIPE
+#define DIRCOLOR "\033[0;34m"       //  DIR d3
+#define LINK "\033[0;35m"           //  LINK
+#define BLOK "\033[34;46m"          // BLOK
+#define CHARACTER "\033[34;43m"     // CHARACTER
+#define UIDBIT "\033[30;41m"        // --s------ 1
+#define GIDBIT "\033[30;46m"        // -----s--- 2
+#define STICKYBIT "\033[30;42m"     // -------wT(t)  d1
+#define NOTSTICKYBIT "\033[30;43m"  // -------w- d2
 #define MX_HALF_YEAR 15768000
 #define MX_MINOR(x) ((x) & 0xFFFFFF)
 #define MX_MAJOR(x) (((x) >> 24) & 0xFF)
@@ -44,6 +57,7 @@ typedef struct s_data_const {
     char *strbytes;
     char *strblocks;
     char *strino;
+    char *color;
     int min;
     int maj;
     long nsec;
@@ -103,6 +117,7 @@ typedef struct s_big_data {
     char *dir_name;
 } t_data;
 
+void mx_color(t_const *cnst);
 void mx_print_m(t_data *data);
 void mx_sort_dir(t_dir *dir, t_data *data);
 void mx_sort_dir_alp(t_dir *dir);

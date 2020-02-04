@@ -1,17 +1,5 @@
 #include "uls.h"
 
-static void get_str_to_file(t_const *data_l, t_data *data);
-static void get_strstr(t_const *data_l, t_data *data);
-
-void mx_get_file_col(t_const *data_l, t_data *data) {
-    if (isatty(1) == 0 || data->flags[2] || data->flags[14]) {
-        get_str_to_file(data_l, data);
-    }
-    else {
-        get_strstr(data_l, data);
-    }
-}
-
 static void get_strstr(t_const *data_l, t_data *data) {
     char **result = malloc(sizeof(char *) * (data->size_all + 1));
 
@@ -36,4 +24,13 @@ static void get_str_to_file(t_const *data_l, t_data *data) {
     }
     data->isattyflag = 1;
     data->name_all = file;
+}
+
+void mx_get_file_col(t_const *data_l, t_data *data) {
+    if (isatty(1) == 0 || data->flags[2] || data->flags[14]) {
+        get_str_to_file(data_l, data);
+    }
+    else {
+        get_strstr(data_l, data);
+    }
 }

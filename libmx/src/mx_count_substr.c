@@ -12,8 +12,8 @@ int mx_count_substr(const char *str, const char *sub) {
         return count;
     len = mx_strlen(sub);
     j = mx_strlen(str) / len;
-    for(int i = 0; i < j; i++) 
-        if(mx_strstr(tmp, sub)) {   
+    for (int i = 0; i < j; i++) 
+        if (mx_strstr(tmp, sub)) {   
             tmp = mx_strstr(tmp, sub);
             count++;
             tmp += len;          

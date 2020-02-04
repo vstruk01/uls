@@ -11,7 +11,7 @@ static char *one(char c) {
     return str;
 }
 
-static char *two(char c){
+static char *two(char c) {
     char *str = malloc(5);
 
     str[0] = ((c >> 6) & 0x1F) | 0xC0;

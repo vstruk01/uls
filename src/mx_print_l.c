@@ -1,26 +1,5 @@
 #include "uls.h"
 
-static void pritn2(t_data *data, t_const *cnst);
-static void print(t_data *data, t_const *cnst);
-static void permission(t_const *cnst, t_data *data);
-
-void mx_print_l(t_const *cnst, t_data *data) {
-    if (data->flag_total)
-        mx_printstr_update("total ", data->strtotal, "\n", NULL);
-    while (cnst != NULL) {
-        if (isatty(1) != 0)
-            mx_control_char_name(&cnst->name);
-        permission(cnst, data);
-        if (data->flags[7]) {
-            mx_print_spase(data->max_len_ino - mx_strlen(cnst->strino));
-            mx_printstr_update(cnst->strino, " ", NULL, NULL);
-        }
-        pritn2(data, cnst);
-        print(data, cnst);
-        cnst = cnst->next;
-    }
-}
-
 static void pritn2(t_data *data, t_const *cnst) {
     if (data->flags[8]) {
         mx_print_spase(data->max_len_blocks - mx_strlen(cnst->strblocks));
@@ -44,10 +23,9 @@ static void pritn2(t_data *data, t_const *cnst) {
 
 static void print(t_data *data, t_const *cnst) {
     if (data->flag_minmaj && !mx_isspecial(cnst))
-        mx_print_spase(data->max_len_min + data->max_len_maj 
-                        + 3 - data->max_len_bytes);
+        mx_print_spase(8 - data->max_len_bytes);
     if (mx_isspecial(cnst)) {
-        mx_print_spase(data->max_len_maj - mx_strlen(cnst->strmaj) + 1);
+        mx_print_spase(data->max_len_maj - mx_strlen(cnst->strmaj) - 1);
         mx_printstr_update(cnst->strmaj, ",", " ", NULL);
         mx_print_spase(data->max_len_min - mx_strlen(cnst->strmin));
         mx_printstr(cnst->strmin);
@@ -56,7 +34,8 @@ static void print(t_data *data, t_const *cnst) {
         mx_print_spase(data->max_len_bytes - mx_strlen(cnst->strbytes));
         mx_printstr(cnst->strbytes);
     }
-    mx_printstr_update(" ", cnst->strtime, " ", cnst->name);
+    mx_printstr_update(" ", cnst->strtime, " ", cnst->color);
+    mx_printstr_update(cnst->name, NOCOLOR, NULL, NULL);
     if (mx_islink(cnst) && cnst->strrwx[1] != '-')
         mx_printstr_update(" -> ", cnst->strlink, NULL, NULL);
     mx_printstr("\n");
@@ -84,4 +63,19 @@ static void permission(t_const *cnst, t_data *data) {
     }
 }
 
-
+void mx_print_l(t_const *cnst, t_data *data) {
+    if (data->flag_total)
+        mx_printstr_update("total ", data->strtotal, "\n", NULL);
+    while (cnst != NULL) {
+        if (isatty(1) != 0)
+            mx_control_char_name(&cnst->name);
+        permission(cnst, data);
+        if (data->flags[7]) {
+            mx_print_spase(data->max_len_ino - mx_strlen(cnst->strino));
+            mx_printstr_update(cnst->strino, " ", NULL, NULL);
+        }
+        pritn2(data, cnst);
+        print(data, cnst);
+        cnst = cnst->next;
+    }
+}
