@@ -43,7 +43,7 @@ static void sort_time_dir(t_dir *dir) {
 }
 
 static void sort_revers_dir(t_dir *dir, t_data *data) {
-    t_const **tmp = malloc(sizeof (t_const) * (data->size));
+    t_const **tmp = malloc(sizeof(t_const) * (data->size));
     t_dir *save = dir;
 
     tmp[data->size] = NULL;
@@ -62,7 +62,7 @@ static void sort_revers_dir(t_dir *dir, t_data *data) {
 
 void mx_sort_dir(t_dir *dir, t_data *data) {
     for (t_dir *i = dir; i != NULL; i = i->next) {
-        i->cnst = malloc(sizeof (t_const));
+        i->cnst = malloc(sizeof(t_const));
         i->cnst->ful_n = NULL;
         i->cnst->name = i->name;
         mx_get_flag_l(i->cnst, data);

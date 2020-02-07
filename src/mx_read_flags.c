@@ -16,7 +16,5 @@ void mx_read_flags(char **argv, int argc, t_data *app) {
     app->max_len_min = 3;
     app->max_len_maj = 4;
     app->isattyflag = 0;
-    app->max_len_flags = 0;
-    app->len_ttr = 0;
     mx_count_flags_in_str(argv, app, argc);
 }

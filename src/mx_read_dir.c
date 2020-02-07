@@ -17,8 +17,8 @@ static void print_error(t_data *data, char *name, t_sort *gen) {
 }
 
 static t_sort *get_name(struct dirent *entry, t_data *data, t_sort *gen) {
-    gen->next = malloc(sizeof (t_sort));
-    gen->next->cnst = malloc(sizeof (t_const));
+    gen->next = malloc(sizeof(t_sort));
+    gen->next->cnst = malloc(sizeof(t_const));
     gen->next->cnst->name = mx_strdup(entry->d_name);
     if (data->path !=  NULL) {
         char *tmp = mx_strjoin(data->path, "/");
@@ -35,30 +35,21 @@ static t_sort *get_name(struct dirent *entry, t_data *data, t_sort *gen) {
     return gen;
 }
 
-static void flag_A(DIR *dir, t_data *data, t_sort *gen) {
-    struct dirent *entry = NULL;
-
-    while ((entry = readdir(dir)) != NULL) {
-        if (mx_strcmp(entry->d_name, ".") != 0 
-            && mx_strcmp(entry->d_name, "..") != 0) {
-            gen = get_name(entry, data, gen);
-        }
-    }
-}
-
 static void flag_a_A(DIR *dir, t_data *data, t_sort *gen) {
     struct dirent *entry = NULL;
+    int *flags = data->flags;
 
     data->flag_total = 1;
-    if (data->flags[23]) {
-        entry = readdir(dir);
-        gen = get_name(entry, data, gen);
-    }
-    else if (data->flags[0])
+    if (flags[0] == 1 || flags[9] == 1)
         while ((entry = readdir(dir)) != NULL)
             gen = get_name(entry, data, gen);
-    else if (data->flags[1])
-        flag_A(dir, data, gen);
+    else if (flags[1] == 1) {
+        while ((entry = readdir(dir)) != NULL)
+            if (mx_strcmp(entry->d_name, ".") != 0 
+                && mx_strcmp(entry->d_name, "..") != 0) {
+                gen = get_name(entry, data, gen);
+            }
+    }
     else
         while ((entry = readdir(dir)) != NULL)
             if (entry->d_name[0] != '.')

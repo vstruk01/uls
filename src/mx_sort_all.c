@@ -18,6 +18,5 @@ void mx_sort_all(t_data *data, t_sort *general) {
     mx_creat_list(general);
     data->cnst = general->cnst;
     mx_color(data->cnst);
-    mx_get_flag_f(data->cnst);
     data->sort = general;
 }

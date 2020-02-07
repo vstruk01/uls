@@ -1,7 +1,7 @@
 #include "uls.h"
 
 void mx_sort_revers(t_sort *gen, t_data *data) {
-    t_const **tmp = malloc(sizeof (t_const) * (data->size));
+    t_const **tmp = malloc(sizeof(t_const) * (data->size));
     t_sort *save = gen;
 
     tmp[data->size] = NULL;

@@ -20,22 +20,21 @@ static void printcolor(char *str, t_const *cnst, t_data *data) {
             if (cnst->color != NULL)
                 mx_printstr(cnst->color);
             mx_printstr(cnst->name);
-            return ;
+            return;
         }
         cnst = cnst->next;
     }
 }
 
-static void printspase(int i, t_data *data, char *str) {
-    int j = 0;
+static void printspase(int i, t_data *data) {
+    int j = i / 8;
 
-    i -= mx_print_flag_f(str, data);
-    j = i / 8;
     if (i % 8 > 0)
         j++;
-    if (data->flags[16] && isatty(1)) {
-        for (int n = 0; n < i; n++)
+    if (data->flags[16] && isatty(1) != 0) {
+        for (int n = 0; n < i; n++) {
             mx_printchar(' ');
+        }
         return;
     }
     for (int n = 0; n < j; n++)
@@ -49,30 +48,25 @@ static void print_col(t_data *data, char **file) {
         if (i % data->width == 0 && i != 0)
             mx_printstr("\n");
         if (file[i] != NULL) {
-            if (data->flags[16] && isatty(1))
+            if (data->flags[16] && isatty(1) != 0)
                 printcolor(file[i], data->cnst, data);
-            if (!data->flags[16] || !isatty(1))
+            if (!data->flags[16])
                 mx_printstr(file[i]);
-            if (data->flags[16] && isatty(1))
-                mx_printstr(MX_NOCOLOR);
-            if ((i + 1) % data->width != 0 && file[i + 1] != NULL) {
-                printspase(data->max_len_name - mx_strlen(file[i]),
-                           data, file[i]);
-            }
-            else
-                mx_print_flag_f(file[i], data);
+            if (data->flags[16] && isatty(1) != 0)
+                mx_printstr(NOCOLOR);
+            if ((i + 1) % data->width != 0 && file[i + 1] != NULL)
+                printspase(data->max_len_name - mx_strlen(file[i]), data);
         }
     }
+    if (data->size != 0)
+        mx_printstr("\n");
 }
 
 void mx_print_file(t_data *data) {
     char **file = data->name_all;
 
-    if ((!isatty(1) || data->flags[2]) && !data->flags[17])
+    if ((data->isattyflag || data->flags[2]) && !data->flags[17])
         mx_print_to_file(file, data);
-    else {
+    else
         print_col(data, file);
-        if (data->size != 0)
-            mx_printstr("\n");
-    }
 }
