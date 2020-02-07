@@ -2,12 +2,12 @@
 
 static void color_file(t_const *cnst) {
     if (cnst->strrwx[3] == 's')
-        cnst->color = MX_UIDBIT;
+        cnst->color = UIDBIT;
     else if (cnst->strrwx[6] == 's')
-        cnst->color = MX_GIDBIT;
+        cnst->color = GIDBIT;
     else if (cnst->strrwx[3] == 'x' || cnst->strrwx[6] == 'x' 
              || cnst->strrwx[9] == 'x' || cnst->strrwx[9] == 't') {
-        cnst->color = MX_RED;
+        cnst->color = RED;
     }
     else 
         cnst->color = NULL;
@@ -16,26 +16,26 @@ static void color_file(t_const *cnst) {
 static void color_dir(t_const *cnst) {
     if (cnst->strrwx[8] == 'w'
         && (cnst->strrwx[9] == 'T' || cnst->strrwx[9] == 't')) {
-        cnst->color = MX_STICKYBIT;
+        cnst->color = STICKYBIT;
     }
     else if (cnst->strrwx[8] == 'w')
-        cnst->color = MX_NOTSTICKYBIT;
+        cnst->color = NOTSTICKYBIT;
     else
-        cnst->color = MX_DIRCOLOR;
+        cnst->color = DIRCOLOR;
 }
 
 void mx_color(t_const *cnst) {
     while (cnst != NULL) {
         if (cnst->strrwx[0] == 's')
-            cnst->color = MX_SOCKET;
+            cnst->color = SOCKET;
         else if (cnst->strrwx[0] == 'p')
-            cnst->color = MX_PIPE;
+            cnst->color = PIPE;
         else if (cnst->strrwx[0] == 'l')
-            cnst->color = MX_LINK;
+            cnst->color = LINK;
         else if (cnst->strrwx[0] == 'b')
-            cnst->color = MX_BLOK;
+            cnst->color = BLOK;
         else if (cnst->strrwx[0] == 'c')
-            cnst->color = MX_CHARACTER;
+            cnst->color = CHARACTER;
         else if (cnst->strrwx[0] == '-')
             color_file(cnst);
         else if (cnst->strrwx[0] == 'd')
