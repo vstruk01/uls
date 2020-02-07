@@ -1,7 +1,7 @@
 #include "libmx.h"
 
 static char **cycle(char **arr, int**all,  char *pivot, int *count) {
-    while ((*all)[0] <= (*all0)[1]) {
+    while ((*all)[0] <= (*all)[1]) {
         while (mx_strlen(arr[(*all)[0]]) < mx_strlen(pivot))
             (*all)[0]++;
         while (mx_strlen(arr[(*all)[1]]) > mx_strlen(pivot))
