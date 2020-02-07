@@ -19,7 +19,7 @@ static void print_and_sort(t_data *data, t_const *cnst) {
 }
 
 static t_sort *new_nod(t_sort *gen, t_const *cnst, t_data *data) {
-    gen->next = malloc(sizeof(t_sort));
+    gen->next = malloc(sizeof (t_sort));
     gen = gen->next;
     mx_get_flag_l(cnst, data);
     gen->cnst = cnst;
@@ -28,7 +28,7 @@ static t_sort *new_nod(t_sort *gen, t_const *cnst, t_data *data) {
 }
 
 void mx_file_argument(t_const *cnst, t_data *data) {
-    t_sort *gen = malloc(sizeof(t_sort));
+    t_sort *gen = malloc(sizeof (t_sort));
     t_sort *save = gen;
 
     data->cnst = cnst;

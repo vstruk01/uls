@@ -19,10 +19,12 @@ static void get_int(t_data *data) {
     data->size_all = 0;
     data->width = 0;
     data->flag_minmaj = 0;
+    data->max_len_flags = 0;
+    data->len_ttr = 0;
 }
 
 static t_data *get_data(t_data *data) {
-    data->next = malloc(sizeof(t_data));
+    data->next = malloc(sizeof (t_data));
     data->next->flags = data->flags;
     data = data->next;
     data->next = NULL;
@@ -40,6 +42,8 @@ static void read_dir(t_data *data, t_dir *dir) {
             mx_print_m(data);
             mx_printchar('\n');
         }
+        else if (data->flags[24])
+            mx_print_x(data);
         else {
             if (data->flags[8])
                 mx_printstr_update("total ", data->strtotal, "\n", NULL);
