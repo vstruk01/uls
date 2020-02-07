@@ -36,7 +36,7 @@ static void printspase(int i, t_data *data, char *str) {
     if (data->flags[16] && isatty(1)) {
         for (int n = 0; n < i; n++)
             mx_printchar(' ');
-        return;
+        return ;
     }
     for (int n = 0; n < j; n++)
         mx_printchar('\t');
@@ -45,7 +45,7 @@ static void printspase(int i, t_data *data, char *str) {
 static void print_col(t_data *data, char **file) {
     if (!data->isattyflag)
         mx_check_control_char(&file);
-    for (int i = 0; i < data->size_all && file != NULL; i++) {
+    for (int i = 0; file[i] != NULL && file != NULL; i++) {
         if (i % data->width == 0 && i != 0)
             mx_printstr("\n");
         if (file[i] != NULL) {
@@ -65,14 +65,10 @@ static void print_col(t_data *data, char **file) {
     }
 }
 
-void mx_print_file(t_data *data) {
+void mx_print_x(t_data *data) {
     char **file = data->name_all;
-
-    if ((!isatty(1) || data->flags[2]) && !data->flags[17])
-        mx_print_to_file(file, data);
-    else {
-        print_col(data, file);
-        if (data->size != 0)
-            mx_printstr("\n");
-    }
+    
+    print_col(data, file);
+    if (data->size != 0)
+        mx_printstr("\n");
 }

@@ -9,6 +9,7 @@ static char **cycle(char **arr, int**all,  char *pivot, int *count) {
         if ((*all)[0] <= (*all)[1]) {
             if (mx_strlen(arr[(*all)[1]]) != mx_strlen(arr[(*all)[0]])) {
                 char *temp = arr[(*all)[0]];
+
                 arr[(*all)[0]] = arr[(*all)[1]];
                 arr[(*all)[1]] = temp;
                 (*count)++;
@@ -22,7 +23,7 @@ static char **cycle(char **arr, int**all,  char *pivot, int *count) {
 
 int mx_quicksort(char **arr, int left, int right){
     int count = 0;
-    int *all = malloc(sizeof(int) * 2);
+    int *all = malloc(sizeof (int) * 2);
     char *pivot;
 
     if (left < right) {

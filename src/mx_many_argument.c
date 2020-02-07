@@ -6,7 +6,7 @@ static t_const *get_file(t_const *cnst, char *str) {
         cnst->name = str;
     }
     else {
-        cnst->next = malloc(sizeof(t_const));
+        cnst->next = malloc(sizeof (t_const));
         cnst->next->name = str;
         cnst = cnst->next;
         cnst->next = NULL;
@@ -20,7 +20,7 @@ static t_dir *get_dir(t_dir *dir, char *str) {
         dir->name = str;
     }
     else {
-        dir->next = malloc(sizeof(t_dir));
+        dir->next = malloc(sizeof (t_dir));
         dir->next->name = str;
         dir = dir->next;
         dir->next = NULL;

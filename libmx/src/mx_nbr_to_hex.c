@@ -18,11 +18,8 @@ char *mx_nbr_to_hex(unsigned long n) {
     int lenstr = 0;
     unsigned long nbr = n;
 
-    if (n == 0) {
-        char *s = mx_strnew(1);
-        *s = '0';
-        return s;
-    }
+    if (n == 0)
+        return "0";
     while (nbr != 0) {
         nbr /= 16;
         lenstr++;

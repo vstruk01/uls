@@ -8,6 +8,10 @@ LBMXD = libmx
 LMBX = libmx.a
 INC = uls.h
 SRC = main.c \
+mx_print_x.c \
+mx_get_flags_for_file.c \
+mx_get_flag_f.c \
+mx_print_flag_f.c \
 mx_color.c \
 mx_print_m.c \
 mx_read_dir.c \

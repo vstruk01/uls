@@ -26,6 +26,10 @@ void mx_get_time(struct stat st, t_const *cnst, t_data *data){
         cnst->nsec = st.st_atimespec.tv_nsec;
         cnst->time = st.st_atime;
     }
+    else if (data->flags[22]) {
+        cnst->nsec = st.st_ctimespec.tv_nsec;
+        cnst->time = st.st_ctime;
+    }
     else {
         cnst->nsec = st.st_mtimespec.tv_nsec;
         cnst->time = st.st_mtime;
