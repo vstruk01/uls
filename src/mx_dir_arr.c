@@ -19,7 +19,7 @@ int mx_dir_arr(char **argv, int argc, t_data *app) {
         }
     }
     for (int j = i; j < argc; j++, len++);
-    app->dir_arr = malloc(sizeof (char *) * len + 1);
+    app->dir_arr = malloc(sizeof(char *) * len + 1);
     for (int j = 0; j <= len; j++) {
         (app->dir_arr)[j] = NULL;
     }

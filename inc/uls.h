@@ -19,19 +19,18 @@
 #include <sys/errno.h>
 
 
-#define MX_FLAGS "ACFOSTGacdgfilmorsptux1@"
-#define MX_NOCOLOR      "\033[0m"           // nocolor
-#define MX_RED          "\033[0;31m"        //  --x--x--x 3
-#define MX_SOCKET       "\033[0;32m"        //  SOCKET
-#define MX_PIPE         "\033[0;33m"        //  PIPE
-#define MX_DIRCOLOR     "\033[0;34m"        //  DIR d3
-#define MX_LINK         "\033[0;35m"        //  LINK
-#define MX_BLOK         "\033[34;46m"       // BLOK
-#define MX_CHARACTER    "\033[34;43m"       // CHARACTER
-#define MX_UIDBIT       "\033[30;41m"       // --s------ 1
-#define MX_GIDBIT       "\033[30;46m"       // -----s--- 2
-#define MX_STICKYBIT    "\033[30;42m"       // -------wT(t)  d1
-#define MX_NOTSTICKYBIT "\033[30;43m"       // -------w- d2
+#define NOCOLOR "\033[0m"           // nocolor
+#define RED "\033[0;31m"            //  --x--x--x 3
+#define SOCKET "\033[0;32m"         //  SOCKET
+#define PIPE "\033[0;33m"           //  PIPE
+#define DIRCOLOR "\033[0;34m"       //  DIR d3
+#define LINK "\033[0;35m"           //  LINK
+#define BLOK "\033[34;46m"          // BLOK
+#define CHARACTER "\033[34;43m"     // CHARACTER
+#define UIDBIT "\033[30;41m"        // --s------ 1
+#define GIDBIT "\033[30;46m"        // -----s--- 2
+#define STICKYBIT "\033[30;42m"     // -------wT(t)  d1
+#define NOTSTICKYBIT "\033[30;43m"  // -------w- d2
 #define MX_HALF_YEAR 15768000
 #define MX_MINOR(x) ((x) & 0xFFFFFF)
 #define MX_MAJOR(x) (((x) >> 24) & 0xFF)
@@ -40,7 +39,7 @@ typedef enum f_errors {
     INVALID_ARGV,
     INVALID_FLAGS
 } t_errors;
-
+//
 typedef struct s_data_const {
     time_t time;
     char *ful_n;
@@ -59,12 +58,6 @@ typedef struct s_data_const {
     char *strblocks;
     char *strino;
     char *color;
-    char *flag_f;
-    char *flags;
-    char *acltext;
-    char *strxattr;
-    char *inoattr;
-    int xattr;
     int min;
     int maj;
     long nsec;
@@ -108,28 +101,93 @@ typedef struct s_big_data {
     int max_len_uid;
     int max_len_gid;
     int max_len_bytes;
-    int max_len_link;
+    int max_len_link; //
     int max_len_min;
     int max_len_maj;
     int max_len_ino;
     int max_len_blocks;
-    int max_len_flags;
-    int len_ttr;
     bool acl;
     int total;
     int errors;
     bool link;
     struct s_big_data *next;
+//____________________________________________________//
     char **dir_arr;
     char *str;
     char *dir_name;
 } t_data;
+//__________________________________________________//
+typedef struct s_files {
+    char *file_name;
+    char type;
+    struct stat stats; //
+    struct s_files *next;
+}   t_files;
+//directory list
+typedef struct s_dirs {
+    char *dir_name;
+    char type;
+    t_files *files;
+    struct s_dirs *next;
+}   t_dirs;
 
+int mx_flag_r(int argc, char **argv);
+int mx_error_printer(char *dir_name);
+int mx_return_value(int argc, char **argv);
+char *mx_flags_parser(int argc, char **argv);//------
+t_files *mx_files_list_maker(char *dir_name, char *flags);
+char **mx_list_of_dirs(char *dir);
+char **mx_list_of_files(char *dir_name, char *flags, char* file_path);
+void mx_recursion(char **specified_dirs, char *flags);
+char **mx_specified_directories(int argc, char **argv);
+void mx_directories(int argc, char **argv, char *flags);
+int mx_permission_denied(char *dir_name);
+int mx_error(char *dir_name);
+void mx_quicksort_strarr(char **arr, int left, int right);
+int mx_strarr_size(char **arr);
+void mx_second_section(t_files *files, char *flags, char *dir);
+int mx_is_in_arr(char *s, char c);
+int mx_count_list(t_files* list);
+void mx_pure_output(t_files *list, char *flags);
+int mx_rest(t_files* list, int cols);
+char** mx_sort_output(int count, t_files* list, int cols, char *s[count]);
+void mx_free_strarr(char **strarr);
+void mx_tfiles_freesher(t_files *files);
+t_dirs *mx_create_tdirs(char *dir_name);
+t_files *mx_create_tfiles(char *file_name);
+void mx_push_back_tdirs(t_dirs **list, char *dir_name);
+void mx_push_back_tfiles(t_files **list, char *file_name);
+int mx_file_exists(char *file);
+int mx_argv_index(int argc, char *argv[]);
+int mx_char_in_arr_counter(char *arr, char c);
+char mx_file_type(char *file_path, struct stat Stat);
+t_files *mx_flag_d(char **specified_dirs);
+char **mx_new_strarr(int number_of_str);
+int mx_a_checker(char *dir_name, char *flags);
+char mx_type(char *file_path);
+char *mx_three_join(char *str1, char *str2, char *str3);
+char *mx_string_copy(char *str);
+int mx_is_directory(char *dir_name);
+void mx_flag_m(t_files *files, char *flags);
+void mx_minus_one(t_files *files, char *flags);
+char* mx_convert_date(char* buff, t_files* list);
+char *mx_file_mode(struct stat Stat, char *name, char* path);
+void mx_flag_l_output(t_files *list, char *dir, char *flags);
+char* mx_get_stgid(t_files *list);
+char *mx_getuser(uid_t uid);
+void mx_print_total(t_files *list);
+void mx_minus_one(t_files *files, char *flags);
+void mx_flag_m(t_files *files, char *flags);
+void mx_flag_p(t_files *files, char *flags);
+void mx_flag_p_for_pureoutput(t_files *list);
+char* mx_link(char *file, struct stat sb);
+char *mx_file_name_retriever(char *file_path);
+int mx_getint_len (int num);
+char **mx_strarr(int number_of_str, char **argv);
+void mx_super_print(t_files *list, int i, char *arr[mx_count_list(list)]);
+char* mx_file_mode_add(struct stat Stat, char *mode);
+//__________________________________________________//
 
-void mx_print_x(t_data *data);
-void mx_get_flags_for_file(t_const *cnst, struct stat st);
-int mx_print_flag_f(char *str, t_data *data);
-void mx_get_flag_f(t_const *cnst);
 void mx_color(t_const *cnst);
 void mx_print_m(t_data *data);
 void mx_sort_dir(t_dir *dir, t_data *data);
@@ -183,6 +241,7 @@ int mx_columns();
 void mx_print_file(t_data *data);
 void mx_num_file(t_const *cnst, t_data *data);
 int mx_read_dir(char *dirname, t_data *data);
+// Мои
 void mx_flags_into_arr(char *s, t_data *app);
 void mx_read_flags(char **argv, int argc, t_data *app);
 void mx_count_flags_in_str(char **argv, t_data *app, int argc);
@@ -195,5 +254,6 @@ void mx_flags_for_sort(char *cont, t_data *app);
 void mx_other_flags(char *cont, t_data *app);
 void  mx_printerr_char(char s);
 void mx_flags_into_arr(char *s, t_data *app);
+//
 
 #endif

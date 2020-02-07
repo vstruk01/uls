@@ -10,26 +10,8 @@ static int count_data(t_data *data) {
     return count;
 }
 
-static int print_color(t_data *data, t_const *cnst) {
-    if (data->flags[16] && isatty(1))
-        mx_printstr_update(cnst->color, NULL, NULL, NULL);
-    mx_printstr(cnst->name);
-    if (data->flags[16] && isatty(1))
-        mx_printstr(MX_NOCOLOR);
-    if (data->flags[20] && cnst->flag_f != NULL 
-        && cnst->flag_f[0] == '/') {
-        mx_printstr(cnst->flag_f);
-        return 1;
-    }
-    else if (data->flags[19] && cnst->flag_f != NULL) {
-        mx_printstr(cnst->flag_f);
-        return 1;
-    }
-    return 0;
-}
-
 static int print(t_data *data, t_const *cnst, int count) {
-    if (isatty(1))
+    if (isatty(1) != 0)
         mx_control_char_name(&cnst->name);
     if (count == 0)
         count += mx_strlen(cnst->name) + 2 + count_data(data);
@@ -41,7 +23,11 @@ static int print(t_data *data, t_const *cnst, int count) {
         mx_print_spase(data->max_len_blocks - mx_strlen(cnst->strblocks));
         mx_printstr_update(cnst->strblocks, " ", NULL, NULL);
     }
-    count += print_color(data, cnst);
+    if (data->flags[16] && isatty(1) != 0)
+        mx_printstr_update(cnst->color, NULL, NULL, NULL);
+    mx_printstr_update(NULL, cnst->name, NULL, NULL);
+    if (data->flags[16] && isatty(1) != 0)
+        mx_printstr(NOCOLOR);
     if (cnst->next != NULL)
         mx_printstr(", ");
     return count;
@@ -58,7 +44,7 @@ void mx_print_m(t_data *data) {
         if(cnst->next != NULL) {    
             count += mx_strlen(cnst->next->name) + 2 + count_data(data);
         }
-        if (data->colums <= count) {
+        if (data->colums < count) {
             mx_printstr("\n");
             count = 0;
         }

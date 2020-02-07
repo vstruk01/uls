@@ -1,20 +1,5 @@
 #include "uls.h"
 
-static void get_term(t_data *data, int num) {
-    data->colums = mx_columns();
-    if (data->flags[16])
-        num++;
-    else
-        num = num + ( 8 - (num % 8));
-    data->max_len_name = num;
-}
-
-static void get_to_file(t_data *data, int num) {
-    data->colums = 80;
-    num = num + ( 8 - (num % 8));
-    data->max_len_name = num;
-}
-
 void mx_num_file(t_const *cnst, t_data *data) {
     int num = 0;
 
@@ -23,13 +8,17 @@ void mx_num_file(t_const *cnst, t_data *data) {
             num = mx_strlen(cnst->name_c);
         cnst = cnst->next;
     }
-    if (data->flags[19] || data->flags[20])
-        num++;
-    if (isatty(1) != 0)
-        get_term(data, num);
+    if (data->flags[16] && isatty(1) != 0)
+        num += 1;
     else
-        get_to_file(data, num);
+        num = num + ( 8 - (num % 8));
+    data->max_len_name = num;
     data->strtotal = mx_itoa_sp(data->total);
+    if (isatty(1) != 0) {
+        data->colums = mx_columns();
+    }
+    else 
+        data->colums = 80;
     data->width = data->colums / data->max_len_name;
     data->size_all = mx_size_a(data);
 }
