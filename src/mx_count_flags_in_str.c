@@ -1,6 +1,18 @@
 #include "uls.h"
 
-static void check_is_valid(char **s, int argc);
+
+static void check_is_valid(char **s, int argc) {
+    for (int i = 1; i < argc; i++) {
+        if (s[i][0] != '-')
+            break;
+        if (mx_get_char_index(s[i], '-') < 0
+            || (mx_get_char_index(s[i], ' ') > 0))
+        {
+            mx_printerr(INVALID_FLAGS, **s);
+        }
+    }
+    argc++;
+}
 
 void mx_count_flags_in_str(char **argv, t_data *app, int argc) {
     char *contain = NULL;
@@ -18,17 +30,3 @@ void mx_count_flags_in_str(char **argv, t_data *app, int argc) {
     }
     mx_flags_into_arr(contain, app);
 }
-
-static void check_is_valid(char **s, int argc) {
-    for (int i = 1; i < argc; i++) {
-        if (s[i][0] != '-')
-            break;
-        if (mx_get_char_index(s[i], '-') < 0
-            || (mx_get_char_index(s[i], ' ') > 0))
-        {
-            mx_printerr(INVALID_FLAGS, **s);
-        }
-    }
-    argc++;
-}
-

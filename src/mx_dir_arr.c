@@ -1,6 +1,11 @@
 #include "uls.h"
 
-static t_data *get_dir(t_data *app, char **argv, int i, int argc);
+static t_data *get_dir(t_data *app, char **argv, int i, int argc) {
+    for (int n = 0; i < argc; i++, n++) {
+        app->dir_arr[n] = mx_strdup(argv[i]);
+    }
+    return app;
+}
 
 int mx_dir_arr(char **argv, int argc, t_data *app) {
     int len = 0;
@@ -14,7 +19,7 @@ int mx_dir_arr(char **argv, int argc, t_data *app) {
         }
     }
     for (int j = i; j < argc; j++, len++);
-    app->dir_arr = malloc(sizeof(char *) * len + 1);
+    app->dir_arr = malloc(sizeof (char *) * len + 1);
     for (int j = 0; j <= len; j++) {
         (app->dir_arr)[j] = NULL;
     }
@@ -23,11 +28,3 @@ int mx_dir_arr(char **argv, int argc, t_data *app) {
         i--;
     return i;
 }
-
-static t_data *get_dir(t_data *app, char **argv, int i, int argc) {
-    for (int n = 0; i < argc; i++, n++) {
-        app->dir_arr[n] = mx_strdup(argv[i]);
-    }
-    return app;
-}
-

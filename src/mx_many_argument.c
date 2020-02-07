@@ -1,30 +1,31 @@
 #include "uls.h"
 
-static t_const *get_file(t_const *cnst, char *str);
-static t_dir *get_dir(t_dir *dir, char *str);
-static void cycle(DIR *dir, t_data *data, int i);
-static int cycle_link(DIR *dir, t_data *data, int i);
-
-void mx_many_argument(t_data *data) {
-    DIR *dir = NULL;
-    t_dir *save_dir = NULL;
-    t_const *save = NULL;
-
-    mx_sort_dir_arr(data);
-    save = data->cnst;
-    save_dir = data->dir;
-    for (int i = 0; data->dir_arr[i]; i++) {
-        dir = opendir(data->dir_arr[i]);
-        if (cycle_link(dir, data, i))
-            cycle(dir, data, i);
+static t_const *get_file(t_const *cnst, char *str) {
+    if (cnst->name == NULL) {
+        cnst->next = NULL;
+        cnst->name = str;
     }
-    data->dir = save_dir;
-    data->cnst = save;
-    if (save->name != NULL)
-        mx_file_argument(save, data);
-    mx_sort_dir(save_dir, data);
-    if (save_dir->name != NULL)
-        mx_dir_argument(save_dir, data);
+    else {
+        cnst->next = malloc(sizeof (t_const));
+        cnst->next->name = str;
+        cnst = cnst->next;
+        cnst->next = NULL;
+    }
+    return cnst;
+}
+
+static t_dir *get_dir(t_dir *dir, char *str) {
+    if (dir->name == NULL) {
+        dir->next = NULL;
+        dir->name = str;
+    }
+    else {
+        dir->next = malloc(sizeof (t_dir));
+        dir->next->name = str;
+        dir = dir->next;
+        dir->next = NULL;
+    }
+    return dir;
 }
 
 static int cycle_link(DIR *dir, t_data *data, int i) {
@@ -61,30 +62,24 @@ static void cycle(DIR *dir, t_data *data, int i) {
     }
 }
 
-static t_const *get_file(t_const *cnst, char *str) {
-    if (cnst->name == NULL) {
-        cnst->next = NULL;
-        cnst->name = str;
-    }
-    else {
-        cnst->next = malloc(sizeof(t_const));
-        cnst->next->name = str;
-        cnst = cnst->next;
-        cnst->next = NULL;
-    }
-    return cnst;
-}
+void mx_many_argument(t_data *data) {
+    DIR *dir = NULL;
+    t_dir *save_dir = NULL;
+    t_const *save = NULL;
 
-static t_dir *get_dir(t_dir *dir, char *str) {
-    if (dir->name == NULL) {
-        dir->next = NULL;
-        dir->name = str;
+    mx_sort_dir_arr(data);
+    save = data->cnst;
+    save_dir = data->dir;
+    for (int i = 0; data->dir_arr[i]; i++) {
+        dir = opendir(data->dir_arr[i]);
+        if (cycle_link(dir, data, i))
+            cycle(dir, data, i);
     }
-    else {
-        dir->next = malloc(sizeof(t_dir));
-        dir->next->name = str;
-        dir = dir->next;
-        dir->next = NULL;
-    }
-    return dir;
+    data->dir = save_dir;
+    data->cnst = save;
+    if (save->name != NULL)
+        mx_file_argument(save, data);
+    mx_sort_dir(save_dir, data);
+    if (save_dir->name != NULL)
+        mx_dir_argument(save_dir, data);
 }
