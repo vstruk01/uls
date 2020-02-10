@@ -8,7 +8,10 @@ int main(int argc, char **argv) {
         mx_one_argument(data);
     else
         mx_many_argument(data);
-    if (data->errors)
-        return 1;
+    while (data != NULL) {
+        if (data->errors)
+            return 1;
+        data = data->next;
+    }
     return 0;
 }
