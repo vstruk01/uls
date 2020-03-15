@@ -3,5 +3,5 @@
 ## FLAGS 
 
 ## Developers:
--[Vlad]()
--[Alex](https://github.com/ivannikovalex0502)
+- [Vlad](https://github.com/vstruk01)
+- [Alex](https://github.com/ivannikovalex0502)
